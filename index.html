@@ -15,7 +15,7 @@
         .modal.active { display: flex !important; }
         .apt-card { transition: all 0.5s; overflow: hidden; border-radius: 3rem; background: white; border: 1px solid #f3f4f6; }
         .apt-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; display: flex; items-center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -27,7 +27,7 @@
 
     <header class="text-center py-16 bg-white border-b">
         <h1 class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter">Amwaj Apartments</h1>
-        <p class="text-2xl text-gray-400 italic font-sans">Directly from the owner Viktor. Best prices 2026.</p>
+        <p class="text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
         <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
     </header>
 
@@ -71,7 +71,7 @@
                 <div class="flex justify-between text-sm mb-2 uppercase font-black text-gray-400"><span>Ночей:</span> <span id="res-nights" class="text-black">0</span></div>
                 <div class="flex justify-between text-4xl font-black pt-6 border-t-4 border-white text-red-600 italic"><span>ИТОГО:</span> <span id="res-total">$0</span></div>
             </div>
-            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-[2rem] font-black uppercase shadow-xl hover:bg-green-600 flex items-center justify-center tracking-widest">
+            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-[2rem] font-black uppercase shadow-xl hover:bg-green-600 flex items-center justify-center tracking-widest font-sans">
                 <i class="fab fa-whatsapp mr-4 text-3xl"></i> Забронировать
             </button>
         </div>
@@ -110,18 +110,18 @@
             return `
                 <div class="apt-card shadow-sm">
                     <div class="aspect-[16/10] relative group overflow-hidden">
-                        <img src="images/${n}/1.JPG" onclick="openGallery('${n}')" onerror="this.src='images/${n}/1.jpg'" class="w-full h-full object-cover cursor-zoom-in transition duration-1000 group-hover:scale-110">
+                        <img src="images/${n}/1.jpg" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in transition duration-1000 group-hover:scale-110">
                         <div class="absolute top-6 right-6 bg-white px-5 py-2 rounded-full font-black shadow-2xl text-xl border-2 border-white italic">$${p}</div>
                     </div>
                     <div class="p-10 bg-white">
                         <h3 class="font-black text-3xl tracking-tighter uppercase text-gray-900 mb-6">Apt #${n}</h3>
-                        <button onclick="openBook('${n}', ${p})" class="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-widest shadow-2xl transition hover:bg-black">Book Now</button>
+                        <button onclick="openBook('${n}', ${p})" class="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-widest shadow-2xl transition hover:bg-black font-sans">Book Now</button>
                     </div>
                 </div>`;
         }
 
         function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
-        function updateGalleryImg() { document.getElementById('gallery-img-content').src = `images/${currentGalleryApt}/${currentImgIdx}.JPG`; }
+        function updateGalleryImg() { document.getElementById('gallery-img-content').src = `images/${currentGalleryApt}/${currentImgIdx}.jpg`; }
         function nextImg() { currentImgIdx = currentImgIdx === 3 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
         function prevImg() { currentImgIdx = currentImgIdx === 1 ? 3 : currentImgIdx - 1; updateGalleryImg(); }
 
@@ -147,4 +147,4 @@
         function sendWhatsApp() { window.open(`https://wa.me/34673567996?text=Booking request for Apt #${currentApt}, Dates: ${document.getElementById('date-picker').value}`); }
     </script>
 </body>
-</html> 
+</html>
