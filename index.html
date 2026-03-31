@@ -11,14 +11,19 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
+        /* Стили для модальных окон */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
         .modal.active { display: flex !important; }
+        /* Стили для карточек квартир */
         .apt-card { transition: all 0.5s; overflow: hidden; border-radius: 3rem; background: white; border: 1px solid #f3f4f6; }
         .apt-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        /* Кнопки навигации в галерее */
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; }
+        /* Шрифт по умолчанию для всего сайта */
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800">
 
     <nav class="bg-white py-6 shadow-sm px-8 flex justify-between items-center sticky top-0 z-40">
         <div class="flex gap-4 text-[10px] font-black text-gray-400 tracking-widest uppercase"><span>RU</span><span>GB</span><span>EG</span><span>ES</span></div>
@@ -71,13 +76,14 @@
                 <div class="flex justify-between text-sm mb-2 uppercase font-black text-gray-400"><span>Ночей:</span> <span id="res-nights" class="text-black">0</span></div>
                 <div class="flex justify-between text-4xl font-black pt-6 border-t-4 border-white text-red-600 italic"><span>ИТОГО:</span> <span id="res-total">$0</span></div>
             </div>
-            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-[2rem] font-black uppercase shadow-xl hover:bg-green-600 flex items-center justify-center tracking-widest font-sans">
+            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-[2rem] font-black uppercase shadow-xl hover:bg-green-600 flex items-center justify-center tracking-widest">
                 <i class="fab fa-whatsapp mr-4 text-3xl"></i> Забронировать
             </button>
         </div>
     </div>
 
     <script>
+        // Конфигурация Firebase (БД)
         const firebaseConfig = {
             apiKey: "AIzaSyA4Ieznu--vvPpk7d1POxH40Q2y7uG_qF8",
             authDomain: "amwaj-booking.firebaseapp.com",
@@ -89,48 +95,73 @@
         };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+        
         let lockedDatesDB = {}; let currentApt = ""; let currentPrice = 0;
         let currentGalleryApt = ""; let currentImgIdx = 1;
 
+        // Запуск при загрузке страницы
         window.onload = () => {
             renderGrids();
+            // Слушаем изменения заблокированных дат в БД
             database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
         };
 
+        // Отрисовка сеток квартир
         function renderGrids() {
             const one = ["601", "602", "603", "605", "606", "609"];
             const two = ["201", "202", "203", "204", "205", "206"];
             const oGrid = document.getElementById('one-bed-grid');
             const tGrid = document.getElementById('two-bed-grid');
-            one.forEach(n => oGrid.innerHTML += createCard(n, 90, "One Bedroom"));
-            two.forEach(n => tGrid.innerHTML += createCard(n, 180, "Two Bedroom"));
+            one.forEach(n => oGrid.innerHTML += createCard(n, 90));
+            two.forEach(n => tGrid.innerHTML += createCard(n, 180));
         }
 
-        function createCard(n, p, t) {
+        // Создание HTML-кода карточки
+        function createCard(n, p) {
             return `
                 <div class="apt-card shadow-sm">
                     <div class="aspect-[16/10] relative group overflow-hidden">
-                        <img src="images/${n}/1.jpg" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in transition duration-1000 group-hover:scale-110">
+                        <img src="images/${n}/1.jpg" 
+                             onclick="openGallery('${n}')" 
+                             onerror="this.onerror=null; this.src='images/${n}/1.JPG';"
+                             class="w-full h-full object-cover cursor-zoom-in transition duration-1000 group-hover:scale-110">
                         <div class="absolute top-6 right-6 bg-white px-5 py-2 rounded-full font-black shadow-2xl text-xl border-2 border-white italic">$${p}</div>
                     </div>
                     <div class="p-10 bg-white">
                         <h3 class="font-black text-3xl tracking-tighter uppercase text-gray-900 mb-6">Apt #${n}</h3>
-                        <button onclick="openBook('${n}', ${p})" class="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-widest shadow-2xl transition hover:bg-black font-sans">Book Now</button>
+                        <button onclick="openBook('${n}', ${p})" class="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-widest shadow-2xl transition hover:bg-black">Book Now</button>
                     </div>
                 </div>`;
         }
 
+        // Функции Галереи
         function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
-        function updateGalleryImg() { document.getElementById('gallery-img-content').src = `images/${currentGalleryApt}/${currentImgIdx}.jpg`; }
+        function updateGalleryImg() { 
+            const img = document.getElementById('gallery-img-content');
+            const smallPath = `images/${currentGalleryApt}/${currentImgIdx}.jpg`;
+            const bigPath = `images/${currentGalleryApt}/${currentImgIdx}.JPG`;
+            
+            img.src = smallPath; // Сначала пробуем маленькие
+            img.onerror = function() {
+                this.onerror = null; // Предотвращаем бесконечный цикл
+                this.src = bigPath; // Если ошибка, пробуем большие
+            };
+        }
         function nextImg() { currentImgIdx = currentImgIdx === 3 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
         function prevImg() { currentImgIdx = currentImgIdx === 1 ? 3 : currentImgIdx - 1; updateGalleryImg(); }
 
+        // Функции Бронирования
         function openBook(no, price) {
             currentApt = no; currentPrice = price;
             document.getElementById('modal-title').innerText = `Apartment #${no}`;
             document.getElementById('book-modal').classList.add('active');
+            
+            // Инициализация календаря
             flatpickr("#date-picker", {
-                mode: "range", minDate: "today", disable: lockedDatesDB[no] || [], dateFormat: "d.m.Y",
+                mode: "range",
+                minDate: "today",
+                disable: lockedDatesDB[no] || [], // Блокируем даты из БД
+                dateFormat: "d.m.Y",
                 onChange: (dates) => {
                     if (dates.length === 2) {
                         const nights = Math.ceil((dates[1]-dates[0])/(1000*60*60*24));
@@ -142,6 +173,7 @@
             });
         }
 
+        // Вспомогательные функции
         function checkAdminPassword() { if (prompt("Password:") === "1234") alert("Admin mode - Coming soon"); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         function sendWhatsApp() { window.open(`https://wa.me/34673567996?text=Booking request for Apt #${currentApt}, Dates: ${document.getElementById('date-picker').value}`); }
