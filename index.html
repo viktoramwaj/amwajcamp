@@ -103,13 +103,13 @@
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
             <div class="space-y-3 mb-10">
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic"></p></div>
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic"></p></div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
             </div>
-            <div id="admin-link-wrapper" class="mb-6 hidden">
+            <div id="admin-link-wrapper" class="mb-6 hidden text-center">
                 <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em]">
                     <i class="fas fa-shield-alt mr-2"></i> Управление системой
                 </button>
@@ -132,12 +132,12 @@
         const database = firebase.database();
         
         const i18n = {
-            GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", admin: "Admin Panel", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996 (English, Spanish, Russian)", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893 (Arabic)" },
-            RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", admin: "Управление системой", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996 (английский, испанский, русский)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабский)" },
-            UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", admin: "Управління системою", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996 (англійська, іспанська, російська)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабська)" },
-            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", admin: "لوحة التحكم", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
-            ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", admin: "Administración", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996 (Inglés, Español, Ruso)", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893 (Árabe)" },
-            IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", admin: "פאנל ניהול", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893" }
+            GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments (living room, bedroom, kitchen, bathroom)", b2: "two bedroom apartments (living room, two bedrooms, kitchen, with two bathrooms)", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", admin: "Admin Panel", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996 (English, Spanish, Russian)", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893 (Arabic)" },
+            RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней (гостинная, спальня, кухня, ванная комната)", b2: "апартаменты с двумя спальнями (гостинная, две спальни, кухня, с двумя ванными комнатами)", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", admin: "Управление системой", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996 (английский, испанский, русский)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабский)" },
+            UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею (вітальня, спальня, кухня, ванна кімната)", b2: "апартаменти з двома спальнями (вітальня, дві спальні, кухня, з двома ванними кімнатами)", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", admin: "Управління системою", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996 (англійська, іспанська, російська)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабська)" },
+            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة (غرفة معيشة، غرفة نوم، مطבח، حمام)", b2: "شقق غرفتين نوم (غرفة معيشة، غرفتين نوم، مطבח، مع حمامين)", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", admin: "لوحة التحكم", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
+            ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio (sala, dormitorio, cocina, baño)", b2: "apartamentos de dos dormitorios (sala, dos dormitorios, cocina, con dos baños)", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", admin: "Administración", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996 (Inglés, Español, Ruso)", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893 (Árabe)" },
+            IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד (סלון, חדר שינה, מטבח, חדר רחצה)", b2: "דירות שני חדרי שינה (סלון, שני חדרי שינה, מטבח, עם שני חדרי רחצה)", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", admin: "פאנל ניהול", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893" }
         };
 
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
@@ -149,12 +149,12 @@
         let currentLang = 'GB';
         let adminPicker;
 
-        // Умная функция загрузки фото (пробует .jpg, если не вышло - .JPG)
+        // УМНАЯ ФУНКЦИЯ ДЛЯ ФОТО (jpg/JPG)
         function smartLoad(img, pathBase) {
-            img.src = pathBase + ".jpg";
-            img.onerror = () => {
-                img.src = pathBase + ".JPG";
-                img.onerror = () => { img.src = "https://via.placeholder.com/400x300?text=No+Photo"; };
+            img.src = pathBase + ".jpg"; // Сначала пробуем маленькие
+            img.onerror = function() {
+                this.src = pathBase + ".JPG"; // Если не вышло — пробуем большие
+                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=No+Photo"; };
             };
         }
 
@@ -181,8 +181,11 @@
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
-            document.getElementById(`btn-${lang}`).classList.add('lang-active');
-            document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if(activeBtn) activeBtn.classList.add('lang-active');
+            const adminLink = document.getElementById('admin-link-wrapper');
+            if(lang === 'RU') adminLink.classList.remove('hidden');
+            else adminLink.classList.add('hidden');
         }
 
         function renderGrids() {
@@ -199,11 +202,11 @@
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
-                        <img id="img-main-${n}" src="" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in">
+                        <img id="img-main-${n}" src="" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in transition duration-700 hover:scale-110">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
                     <div class="p-8 text-center">
-                        <h3 class="font-black text-2xl uppercase">Apartment #${n}</h3>
+                        <h3 class="font-black text-2xl uppercase font-sans">Apartment #${n}</h3>
                         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
                         <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
@@ -258,7 +261,7 @@
         function refreshAdminCalendar() {
             const apt = document.getElementById('admin-apt-select').value;
             const already = (lockedDatesDB[apt] || []).sort();
-            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px]">${already.map(d => `<div class="bg-red-50 p-2 border border-red-100 rounded-lg text-red-600 font-bold">${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
+            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
             adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
         }
 
