@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking V.3.0.7</title>
+    <title>Amwaj Booking System V.3.0.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -61,7 +61,7 @@
         <button onclick="closeModal('gallery-modal')" class="absolute top-8 right-10 text-6xl text-white hover:text-red-500">&times;</button>
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
         <div class="relative group">
-            <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500" onerror="fixImageExtension(this)">
+            <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500">
             <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">1 / 20</div>
         </div>
         <div onclick="nextImg()" class="nav-btn right-10"><i class="fas fa-chevron-right"></i></div>
@@ -103,23 +103,19 @@
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
-            <div class="space-y-3 mb-10 text-center">
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20">
-                    <p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p>
-                </div>
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20">
-                    <p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p>
-                </div>
+            <div class="space-y-3 mb-10">
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic"></p></div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic"></p></div>
             </div>
-            <div id="admin-link-wrapper" class="mb-6 hidden text-center">
-                <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] transition-all">
+            <div id="admin-link-wrapper" class="mb-6 hidden">
+                <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em]">
                     <i class="fas fa-shield-alt mr-2"></i> Управление системой
                 </button>
             </div>
         </div>
-        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
+        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 absolute bottom-0 left-0"></div>
     </footer>
 
     <script>
@@ -136,54 +132,12 @@
         const database = firebase.database();
         
         const i18n = {
-            GB: { 
-                title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", 
-                b1: "one bedroom apartments (living room, bedroom, kitchen, bathroom)", 
-                b2: "two bedroom apartments (living room, two bedrooms, kitchen, with two bathrooms)", 
-                nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", admin: "Admin Panel", contacts: "Contacts",
-                viktor: "Mr. Viktor: WhatsApp +34 673 567 996 ( communication language - English, Spanish, Russian )",
-                sherif: "Mr. Sherif: WhatsApp +20 109 617 6893 ( communication language - Arabic )"
-            },
-            RU: { 
-                title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", 
-                b1: "апартаменты с одной спальней (гостинная, спальня, кухня, ванная комната)", 
-                b2: "апартаменты с двумя спальнями (гостинная, две спальни, кухня, с двумя ванными комнатами)", 
-                nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", admin: "Управление системой", contacts: "Контакты",
-                viktor: "М-р Виктор: WhatsApp +34 673 567 996 ( язык общения - английский, испанский, русский )",
-                sherif: "М-р Шериф: WhatsApp +20 109 617 6893 ( язык общения - арабский )"
-            },
-            UA: { 
-                title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", 
-                b1: "апартаменти з однією спальнею (вітальня, спальня, кухня, ванна кімната)", 
-                b2: "апартаменти з двома спальнями (вітальня, дві спальні, кухня, з двома ванними кімнатами)", 
-                nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", admin: "Управління системою", contacts: "Контакти",
-                viktor: "М-р Віктор: WhatsApp +34 673 567 996 ( мова спілкування - англійська, іспанська, російська )",
-                sherif: "М-р Шериф: WhatsApp +20 109 617 6893 ( мова спілкування - арабська )"
-            },
-            EG: { 
-                title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", 
-                b1: "شقق غرفة نوم واحدة (غرفة معيشة، غرفة نوم، مطبخ، حمام)", 
-                b2: "شقق غرفتين نوم (غرفة معيشة، غرفتين نوم، مطبخ، مع حمامين)", 
-                nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", admin: "لوحة التحكم", contacts: "اتصال",
-                viktor: "السيد فيكتور: WhatsApp +34 673 567 996 ( لغة التواصل - الإنجليزية والإسبانية والروسية )",
-                sherif: "السيد شريف: WhatsApp +20 109 617 6893 ( لغة التواصل - العربية )"
-            },
-            ES: { 
-                title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", 
-                b1: "apartamentos de un dormitorio (sala, dormitorio, cocina, baño)", 
-                b2: "apartamentos de dos dormitorios (sala, dos dormitorios, cocina, con dos baños)", 
-                nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", admin: "Administración", contacts: "Contactos",
-                viktor: "Sr. Viktor: WhatsApp +34 673 567 996 ( idioma de comunicación - inglés, español, ruso )",
-                sherif: "Sr. Sherif: WhatsApp +20 109 617 6893 ( idioma de comunicación - árabe )"
-            },
-            IL: { 
-                title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", 
-                b1: "דירות חדר שינה אחד (סלון, חדר שינה, מטבח, חדר רחצה)", 
-                b2: "דירות שני חדרי שינה (סלון, שני חדרי שינה, מטבח, עם שני חדרי רחצה)", 
-                nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", admin: "פאנל ניהול", contacts: "אנשי קשר",
-                viktor: "מר ויקטור: WhatsApp +34 673 567 996 ( שפת תקשורת - אנגלית, ספרדית, רוסית )",
-                sherif: "מר שריף: WhatsApp +20 109 617 6893 ( שפת תקשורת - ערבית )"
-            }
+            GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", admin: "Admin Panel", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996 (English, Spanish, Russian)", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893 (Arabic)" },
+            RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", admin: "Управление системой", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996 (английский, испанский, русский)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабский)" },
+            UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", admin: "Управління системою", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996 (англійська, іспанська, російська)", sherif: "М-р Шериф: WhatsApp +20 109 617 6893 (арабська)" },
+            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", admin: "لوحة التحكم", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
+            ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", admin: "Administración", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996 (Inglés, Español, Ruso)", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893 (Árabe)" },
+            IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", admin: "פאנל ניהול", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893" }
         };
 
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
@@ -195,15 +149,13 @@
         let currentLang = 'GB';
         let adminPicker;
 
-        // УМНАЯ ФУНКЦИЯ ДЛЯ ФОТО (jpg/JPG)
-        function fixImageExtension(img) {
-            if (img.src.includes('.jpg')) {
-                img.src = img.src.replace('.jpg', '.JPG');
-            } else if (img.src.includes('.JPG')) {
-                img.src = img.src.replace('.JPG', '.jpg');
-            }
-            // Чтобы не зациклиться, удаляем обработчик после попытки
-            img.onerror = null; 
+        // Умная функция загрузки фото (пробует .jpg, если не вышло - .JPG)
+        function smartLoad(img, pathBase) {
+            img.src = pathBase + ".jpg";
+            img.onerror = () => {
+                img.src = pathBase + ".JPG";
+                img.onerror = () => { img.src = "https://via.placeholder.com/400x300?text=No+Photo"; };
+            };
         }
 
         window.onload = () => {
@@ -229,11 +181,8 @@
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
-            const activeBtn = document.getElementById(`btn-${lang}`);
-            if(activeBtn) activeBtn.classList.add('lang-active');
-            const adminLink = document.getElementById('admin-link-wrapper');
-            if(lang === 'RU') adminLink.classList.remove('hidden');
-            else adminLink.classList.add('hidden');
+            document.getElementById(`btn-${lang}`).classList.add('lang-active');
+            document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
         }
 
         function renderGrids() {
@@ -246,33 +195,31 @@
         }
 
         function createCard(n, p, t) {
+            const path = `images/${n}/1`;
             return `
-                <div class="apt-card">
+                <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
-                        <img src="images/${n}/1.jpg" onclick="openGallery('${n}')" onerror="fixImageExtension(this)" class="w-full h-full object-cover cursor-zoom-in transition duration-700 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black shadow-lg text-lg italic text-red-600">$${p}</div>
+                        <img id="img-main-${n}" src="" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
-                    <div class="p-8 pt-2 text-center">
-                        <h3 class="font-black text-2xl tracking-tighter uppercase text-gray-900">Apartment #${n}</h3>
+                    <div class="p-8 text-center">
+                        <h3 class="font-black text-2xl uppercase">Apartment #${n}</h3>
                         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
                         <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
-                </div>`;
+                </div>
+                <script>smartLoad(document.getElementById('img-main-${n}'), '${path}')<\/script>`;
         }
 
         function openGallery(apt) { 
-            currentGalleryApt = apt; 
-            currentImgIdx = 1; 
-            updateGalleryImg(); 
+            currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); 
             document.getElementById('gallery-modal').classList.add('active'); 
         }
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
             setTimeout(() => {
-                // Пытаемся загрузить как .jpg
-                img.onerror = () => fixImageExtension(img);
-                img.src = `images/${currentGalleryApt}/${currentImgIdx}.jpg`;
+                smartLoad(img, `images/${currentGalleryApt}/${currentImgIdx}`);
                 document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`;
                 img.style.opacity = '1';
             }, 150);
@@ -288,10 +235,7 @@
                 mode: "range", minDate: "today", disable: lockedDatesDB[no] || [], dateFormat: "d.m.Y",
                 onChange: (dates) => {
                     if (dates.length === 2) {
-                        const start = dates[0], end = dates[1];
-                        const isOverlap = (lockedDatesDB[no] || []).some(d => { const ld = new Date(d); return ld >= start && ld <= end; });
-                        if(isOverlap) { alert("Dates are occupied!"); document.getElementById('date-picker')._flatpickr.clear(); return; }
-                        const nights = Math.ceil((end - start)/(1000*60*60*24));
+                        const nights = Math.ceil((dates[1] - dates[0])/(1000*60*60*24));
                         let disc = discounts[nights>=14 ? 14 : nights>=7 ? 7 : nights>=5 ? 5 : nights>=4 ? 4 : nights>=3 ? 3 : 0] || 0;
                         document.getElementById('price-calc').classList.remove('hidden');
                         document.getElementById('res-nights').innerText = nights;
@@ -303,14 +247,9 @@
         }
 
         function checkAdminPassword() {
-            const pass = prompt("Password:");
-            if (pass === "1234") {
+            if (prompt("Password:") === "1234") {
                 const sel = document.getElementById('admin-apt-select');
-                if(sel.innerHTML === "") {
-                    ["201", "202", "203", "204", "205", "206", "601", "602", "603", "605", "606", "609"].sort().forEach(u => {
-                        sel.innerHTML += `<option value="${u}">Apt #${u}</option>`;
-                    });
-                }
+                if(!sel.children.length) ["201","202","203","204","205","206","601","602","603","605","606","609"].sort().forEach(u => sel.innerHTML += `<option value="${u}">Apt #${u}</option>`);
                 document.getElementById('admin-modal').classList.add('active');
                 refreshAdminCalendar();
             }
@@ -319,15 +258,8 @@
         function refreshAdminCalendar() {
             const apt = document.getElementById('admin-apt-select').value;
             const already = (lockedDatesDB[apt] || []).sort();
-            document.getElementById('admin-status-view').innerHTML = already.length > 0 ? 
-                `<div class="grid grid-cols-2 gap-2 uppercase text-[9px]">${already.map(d => `<div class="bg-red-50 p-2 border border-red-100 rounded-lg text-red-600 font-bold">${d}</div>`).join('')}</div>` : 
-                "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
-            adminPicker = flatpickr("#admin-date-picker", { 
-                mode: "multiple", dateFormat: "Y-m-d", 
-                onDayCreate: (dObj, dStr, fp, dayElem) => { 
-                    if (already.includes(dayElem.dateObj.toISOString().split('T')[0])) dayElem.classList.add("already-locked"); 
-                } 
-            });
+            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px]">${already.map(d => `<div class="bg-red-50 p-2 border border-red-100 rounded-lg text-red-600 font-bold">${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
+            adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
         }
 
         function changeDatesStatus(lock) {
@@ -349,9 +281,7 @@
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         function sendWhatsApp() {
-            const dates = document.getElementById('date-picker').value;
-            const total = document.getElementById('res-total').innerText;
-            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${dates}\nTotal: ${total}`;
+            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${document.getElementById('date-picker').value}\nTotal: ${document.getElementById('res-total').innerText}`;
             window.open(`https://wa.me/34673567996?text=${encodeURIComponent(msg)}`);
         }
     </script>
