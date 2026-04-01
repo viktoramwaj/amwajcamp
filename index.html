@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.0.7</title>
+    <title>Amwaj Booking System V.3.0.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -103,13 +103,13 @@
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
-            <div class="space-y-3 mb-10">
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
+            <div class="space-y-3 mb-10 text-center">
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic"></p></div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic"></p></div>
             </div>
-            <div id="admin-link-wrapper" class="mb-6 hidden text-center">
+            <div id="admin-link-wrapper" class="mb-6 hidden">
                 <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em]">
                     <i class="fas fa-shield-alt mr-2"></i> Управление системой
                 </button>
@@ -149,11 +149,11 @@
         let currentLang = 'GB';
         let adminPicker;
 
-        // УМНАЯ ФУНКЦИЯ ДЛЯ ФОТО (jpg/JPG)
+        // Умная функция загрузки фото (теперь ищет в КОРНЕ репозитория)
         function smartLoad(img, pathBase) {
-            img.src = pathBase + ".jpg"; // Сначала пробуем маленькие
+            img.src = pathBase + ".jpg";
             img.onerror = function() {
-                this.src = pathBase + ".JPG"; // Если не вышло — пробуем большие
+                this.src = pathBase + ".JPG";
                 this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=No+Photo"; };
             };
         }
@@ -181,11 +181,8 @@
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
-            const activeBtn = document.getElementById(`btn-${lang}`);
-            if(activeBtn) activeBtn.classList.add('lang-active');
-            const adminLink = document.getElementById('admin-link-wrapper');
-            if(lang === 'RU') adminLink.classList.remove('hidden');
-            else adminLink.classList.add('hidden');
+            document.getElementById(`btn-${lang}`).classList.add('lang-active');
+            document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
         }
 
         function renderGrids() {
@@ -198,7 +195,7 @@
         }
 
         function createCard(n, p, t) {
-            const path = `images/${n}/1`;
+            const path = `${n}/1`; // ПУТЬ В КОРНЕ
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
@@ -214,15 +211,12 @@
                 <script>smartLoad(document.getElementById('img-main-${n}'), '${path}')<\/script>`;
         }
 
-        function openGallery(apt) { 
-            currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); 
-            document.getElementById('gallery-modal').classList.add('active'); 
-        }
+        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
             setTimeout(() => {
-                smartLoad(img, `images/${currentGalleryApt}/${currentImgIdx}`);
+                smartLoad(img, `${currentGalleryApt}/${currentImgIdx}`); // ПУТЬ В КОРНЕ
                 document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`;
                 img.style.opacity = '1';
             }, 150);
@@ -261,7 +255,7 @@
         function refreshAdminCalendar() {
             const apt = document.getElementById('admin-apt-select').value;
             const already = (lockedDatesDB[apt] || []).sort();
-            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
+            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 tracking-tighter italic border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
             adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
         }
 
