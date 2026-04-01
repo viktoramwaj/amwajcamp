@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.0</title>
+    <title>Amwaj Booking System V.3.1.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -103,19 +103,19 @@
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
             <div class="space-y-3 mb-10 text-center">
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
             </div>
-            <div id="admin-link-wrapper" class="mb-6 hidden text-center">
-                <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] transition-all">
+            <div id="admin-link-wrapper" class="mb-6 hidden">
+                <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em]">
                     <i class="fas fa-shield-alt mr-2"></i> Управление системой
                 </button>
             </div>
         </div>
-        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
+        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 absolute bottom-0 left-0"></div>
     </footer>
 
     <script>
@@ -145,24 +145,20 @@
         let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB';
         let adminPicker;
 
-        // Умная функция загрузки (превью и галерея)
-        function smartLoad(img, folder, fileNum) {
-            const path = folder + "/" + fileNum; 
+        // Умная функция загрузки (превью thumb1 и галерея цифрами)
+        function smartLoad(img, folder, fileName) {
+            const path = folder + "/" + fileName; 
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
                 this.onerror = function() { 
-                    this.src = "https://via.placeholder.com/400x300?text=Wait+for+1.jpg"; 
+                    this.src = "https://via.placeholder.com/400x300?text=thumb1.jpg+Missing"; 
                     this.onerror = null;
                 };
             };
         }
 
-        window.onload = () => {
-            renderGrids();
-            setLang('GB');
-            database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
-        };
+        window.onload = () => { renderGrids(); setLang('GB'); database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; }); };
 
         function setLang(lang) {
             currentLang = lang; const t = i18n[lang];
@@ -189,7 +185,7 @@
             const two = ["201", "202", "203", "204", "205", "206"];
             const oGrid = document.getElementById('one-bed-grid');
             const tGrid = document.getElementById('two-bed-grid');
-            oGrid.innerHTML = ""; tGrid.innerHTML = ""; // Очистка перед рендером
+            oGrid.innerHTML = ""; tGrid.innerHTML = "";
             one.forEach(n => oGrid.innerHTML += createCard(n, 90, "1 Bedroom"));
             two.forEach(n => tGrid.innerHTML += createCard(n, 180, "2 Bedrooms"));
         }
@@ -198,7 +194,7 @@
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
-                        <img id="img-main-${n}" src="" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in">
+                        <img id="img-thumb-${n}" src="" onclick="openGallery('${n}')" class="w-full h-full object-cover cursor-zoom-in transition duration-700 hover:scale-110">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
                     <div class="p-8 text-center">
@@ -207,7 +203,7 @@
                         <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
                 </div>
-                <script>smartLoad(document.getElementById('img-main-${n}'), '${n}', '1')<\/script>`;
+                <script>smartLoad(document.getElementById('img-thumb-${n}'), '${n}', 'thumb1')<\/script>`;
         }
 
         function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
@@ -215,7 +211,7 @@
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
             setTimeout(() => {
-                smartLoad(img, currentGalleryApt, currentImgIdx);
+                smartLoad(img, currentGalleryApt, currentImgIdx); // Галерея использует 1, 2, 3...
                 document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`;
                 img.style.opacity = '1';
             }, 150);
@@ -243,8 +239,7 @@
         }
 
         function checkAdminPassword() {
-            const pass = prompt("Password:");
-            if (pass === "1234") {
+            if (prompt("Password:") === "1234") {
                 const sel = document.getElementById('admin-apt-select');
                 if(!sel.children.length) ["201","202","203","204","205","206","601","602","603","605","606","609"].sort().forEach(u => sel.innerHTML += `<option value="${u}">Apt #${u}</option>`);
                 document.getElementById('admin-modal').classList.add('active');
