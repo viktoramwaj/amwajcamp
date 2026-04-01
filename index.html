@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.1</title>
+    <title>Amwaj Booking System V.3.1.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -23,12 +23,14 @@
         .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
+        /* Центрирование навигации после удаления текста */
+        nav .lang-container { width: 100%; display: flex; justify-content: center; gap: 1rem; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <nav class="bg-white py-6 shadow-sm px-8 flex justify-between items-center sticky top-0 z-40">
-        <div class="flex gap-4 text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
+    <nav class="bg-white py-6 shadow-sm px-8 sticky top-0 z-40">
+        <div class="lang-container text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
             <span onclick="setLang('GB')" id="btn-GB">GB</span>
             <span onclick="setLang('RU')" id="btn-RU">RU</span>
             <span onclick="setLang('UA')" id="btn-UA">UA</span>
@@ -36,7 +38,6 @@
             <span onclick="setLang('ES')" id="btn-ES">ES</span>
             <span onclick="setLang('IL')" id="btn-IL">IL</span>
         </div>
-        <div class="text-red-600 font-black uppercase text-xs italic tracking-widest">Amwaj Oyoun Luxury Project</div>
     </nav>
 
     <header class="text-center py-16 bg-white border-b">
@@ -46,12 +47,12 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-16 text-center md:text-left">
-        <h2 id="section-1bed" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">
+        <h2 id="section-1bed" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left">
             <span id="title-1bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span>
         </h2>
         <div id="one-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24"></div>
 
-        <h2 id="section-2bed" class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight">
+        <h2 id="section-2bed" class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left">
             <span id="title-2bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span>
         </h2>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
@@ -75,7 +76,7 @@
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
             </div>
         </div>
-        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 absolute bottom-0 left-0"></div>
+        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
     </footer>
 
     <script>
@@ -90,14 +91,13 @@
 
         let currentApt = "", currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB';
 
-        // Глобальная функция исправления превью
         function smartLoad(img, folder, fileNum) {
             const path = folder + "/" + fileNum;
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
                 this.onerror = function() {
-                    this.src = "https://via.placeholder.com/400x300?text=Needs+1.jpg+in+" + folder;
+                    this.src = "https://via.placeholder.com/400x300?text=Needs+1.jpg";
                     this.onerror = null;
                 };
             };
@@ -106,7 +106,6 @@
         window.onload = () => {
             renderGrids();
             setLang('GB');
-            // Принудительный запуск загрузки превью после рендера
             const imgs = document.querySelectorAll('.main-preview');
             imgs.forEach(img => {
                 const aptId = img.getAttribute('data-apt');
@@ -145,7 +144,7 @@
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
                     <div class="p-8 text-center">
-                        <h3 class="font-black text-2xl uppercase">Apartment #${n}</h3>
+                        <h3 class="font-black text-2xl uppercase font-sans tracking-tighter">Apartment #${n}</h3>
                         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
                         <button onclick="window.open('https://wa.me/34673567996')" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
