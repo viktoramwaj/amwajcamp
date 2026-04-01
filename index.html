@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Apartments 2026</title>
+    <title>Amwaj Booking V.3.0.7</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -11,79 +11,118 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        /* Стили для модальных окон */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
         .modal.active { display: flex !important; }
-        /* Стили для карточек квартир */
-        .apt-card { transition: all 0.5s; overflow: hidden; border-radius: 3rem; background: white; border: 1px solid #f3f4f6; }
+        .flatpickr-day.disabled { background: #fee2e2 !important; color: #ef4444 !important; text-decoration: line-through; opacity: 0.5; }
+        .flatpickr-day.already-locked { background: #ff0000 !important; color: white !important; border-radius: 50% !important; font-weight: 900 !important; border: 2px solid white !important; }
+        .apt-card { transition: all 0.5s; overflow: hidden; border-radius: 2rem; background: white; border: 1px solid #f3f4f6; }
         .apt-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
-        /* Кнопки навигации в галерее */
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; }
-        /* Шрифт по умолчанию для всего сайта */
-        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .apt-img-container { position: relative; overflow: hidden; border-radius: 2rem; margin: 10px; aspect-ratio: 4/3; background: #f3f4f6; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; transition: 0.3s; }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); }
+        .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
     <nav class="bg-white py-6 shadow-sm px-8 flex justify-between items-center sticky top-0 z-40">
-        <div class="flex gap-4 text-[10px] font-black text-gray-400 tracking-widest uppercase"><span>RU</span><span>GB</span><span>EG</span><span>ES</span></div>
-        <div class="text-red-600 font-black uppercase text-xs italic">Amwaj Oyoun Luxury Project</div>
+        <div class="flex gap-4 text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
+            <span onclick="setLang('GB')" id="btn-GB">GB</span>
+            <span onclick="setLang('RU')" id="btn-RU">RU</span>
+            <span onclick="setLang('UA')" id="btn-UA">UA</span>
+            <span onclick="setLang('EG')" id="btn-EG">EG</span>
+            <span onclick="setLang('ES')" id="btn-ES">ES</span>
+            <span onclick="setLang('IL')" id="btn-IL">IL</span>
+        </div>
+        <div class="text-red-600 font-black uppercase text-xs italic tracking-widest">Amwaj Oyoun Luxury Project</div>
     </nav>
 
     <header class="text-center py-16 bg-white border-b">
-        <h1 class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter">Amwaj Apartments</h1>
-        <p class="text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
+        <h1 id="main-title" class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter">Amwaj Apartments</h1>
+        <p id="main-subtitle" class="text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
         <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-16">
-        <h2 class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">One Bedroom <span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span></h2>
+        <h2 id="section-1bed" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">
+            <span id="title-1bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span>
+        </h2>
         <div id="one-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24"></div>
 
-        <h2 class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight">Two Bedroom <span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></h2>
+        <h2 id="section-2bed" class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight">
+            <span id="title-2bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span>
+        </h2>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
     </main>
 
-    <footer class="bg-gray-900 text-white py-24 text-center">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-10 mb-16">
-                <div class="p-8 border border-gray-800 rounded-[2.5rem] bg-gray-800/30">
-                    <p class="text-gray-500 text-[10px] uppercase mb-2 tracking-[0.3em]">Owner (WhatsApp)</p>
-                    <p class="text-2xl font-black italic">Viktor: +34 673 567 996</p>
-                </div>
-                <div class="p-8 border border-gray-800 rounded-[2.5rem] bg-gray-800/30">
-                    <p class="text-gray-500 text-[10px] uppercase mb-2 tracking-[0.3em]">Manager (Calls)</p>
-                    <p class="text-2xl font-black italic">Sherif: +20 109 617 6893</p>
-                </div>
-            </div>
-            <div onclick="checkAdminPassword()" class="w-20 h-1 bg-white/5 mx-auto cursor-pointer"></div>
-        </div>
-    </footer>
-
     <div id="gallery-modal" class="modal">
-        <button onclick="closeModal('gallery-modal')" class="absolute top-8 right-10 text-6xl text-white">&times;</button>
+        <button onclick="closeModal('gallery-modal')" class="absolute top-8 right-10 text-6xl text-white hover:text-red-500">&times;</button>
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
-        <img id="gallery-img-content" src="" class="max-w-[90%] max-h-[85vh] object-contain rounded-2xl shadow-2xl">
+        <div class="relative group">
+            <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500" onerror="fixImageExtension(this)">
+            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">1 / 20</div>
+        </div>
         <div onclick="nextImg()" class="nav-btn right-10"><i class="fas fa-chevron-right"></i></div>
     </div>
 
     <div id="book-modal" class="modal">
-        <div class="bg-white rounded-[4rem] p-12 max-w-md w-full relative text-center">
-            <button onclick="closeModal('book-modal')" class="absolute top-8 right-10 text-4xl text-gray-200 hover:text-red-600">&times;</button>
-            <h2 id="modal-title" class="text-4xl font-black mb-8 uppercase tracking-tighter">Apt</h2>
-            <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-3xl bg-gray-50 font-black text-2xl text-center mb-6 outline-none focus:border-red-600" placeholder="Выбрать даты">
-            <div id="price-calc" class="bg-gray-50 p-8 rounded-[2rem] hidden border-4 border-dashed border-gray-100 mb-8">
-                <div class="flex justify-between text-sm mb-2 uppercase font-black text-gray-400"><span>Ночей:</span> <span id="res-nights" class="text-black">0</span></div>
-                <div class="flex justify-between text-4xl font-black pt-6 border-t-4 border-white text-red-600 italic"><span>ИТОГО:</span> <span id="res-total">$0</span></div>
+        <div class="bg-white rounded-[3rem] p-10 max-w-md w-full relative shadow-2xl text-center">
+            <button onclick="closeModal('book-modal')" class="absolute top-6 right-8 text-4xl text-gray-200 hover:text-red-600">&times;</button>
+            <h2 id="modal-apt-title" class="text-3xl font-black mb-6 uppercase">Apt</h2>
+            <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-2xl bg-gray-50 font-black text-xl text-center mb-4" placeholder="Select dates">
+            <div id="price-calc" class="bg-gray-50 p-6 rounded-2xl hidden border-2 border-dashed border-gray-200 mb-6">
+                <div class="flex justify-between text-xs mb-1 uppercase font-black text-gray-400"><span id="txt-nights">Nights:</span> <span id="res-nights" class="text-black">0</span></div>
+                <div class="flex justify-between text-xs text-green-600 font-black mb-4 uppercase"><span id="txt-discount">Discount:</span> <span id="res-discount">0%</span></div>
+                <div class="flex justify-between text-3xl font-black pt-4 border-t-2 border-white text-red-600 uppercase"><span id="txt-total">Total:</span> <span id="res-total">$0</span></div>
             </div>
-            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-[2rem] font-black uppercase shadow-xl hover:bg-green-600 flex items-center justify-center tracking-widest">
-                <i class="fab fa-whatsapp mr-4 text-3xl"></i> Забронировать
+            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black uppercase shadow-lg hover:bg-green-600 flex items-center justify-center tracking-widest transition-transform active:scale-95">
+                <i class="fab fa-whatsapp mr-3 text-2xl"></i> <span id="btn-book-action">Book Now</span>
             </button>
         </div>
     </div>
 
+    <div id="admin-modal" class="modal">
+        <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl">
+            <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
+            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-4">
+                    <select id="admin-apt-select" onchange="refreshAdminCalendar()" class="w-full border-2 border-gray-100 p-4 rounded-xl font-bold"></select>
+                    <input type="text" id="admin-date-picker" class="w-full border-2 border-gray-100 p-4 rounded-xl text-center font-bold" placeholder="Select dates">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs">Lock Dates</button>
+                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs">Open Dates</button>
+                    </div>
+                    <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
+                </div>
+                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-12 text-center relative">
+        <div class="max-w-4xl mx-auto px-6">
+            <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
+            <div class="space-y-3 mb-10 text-center">
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20">
+                    <p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p>
+                </div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20">
+                    <p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p>
+                </div>
+            </div>
+            <div id="admin-link-wrapper" class="mb-6 hidden text-center">
+                <button onclick="checkAdminPassword()" class="text-gray-600 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] transition-all">
+                    <i class="fas fa-shield-alt mr-2"></i> Управление системой
+                </button>
+            </div>
+        </div>
+        <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
+    </footer>
+
     <script>
-        // Конфигурация Firebase (БД)
         const firebaseConfig = {
             apiKey: "AIzaSyA4Ieznu--vvPpk7d1POxH40Q2y7uG_qF8",
             authDomain: "amwaj-booking.firebaseapp.com",
@@ -96,87 +135,225 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         
-        let lockedDatesDB = {}; let currentApt = ""; let currentPrice = 0;
-        let currentGalleryApt = ""; let currentImgIdx = 1;
+        const i18n = {
+            GB: { 
+                title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", 
+                b1: "one bedroom apartments (living room, bedroom, kitchen, bathroom)", 
+                b2: "two bedroom apartments (living room, two bedrooms, kitchen, with two bathrooms)", 
+                nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", admin: "Admin Panel", contacts: "Contacts",
+                viktor: "Mr. Viktor: WhatsApp +34 673 567 996 ( communication language - English, Spanish, Russian )",
+                sherif: "Mr. Sherif: WhatsApp +20 109 617 6893 ( communication language - Arabic )"
+            },
+            RU: { 
+                title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", 
+                b1: "апартаменты с одной спальней (гостинная, спальня, кухня, ванная комната)", 
+                b2: "апартаменты с двумя спальнями (гостинная, две спальни, кухня, с двумя ванными комнатами)", 
+                nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", admin: "Управление системой", contacts: "Контакты",
+                viktor: "М-р Виктор: WhatsApp +34 673 567 996 ( язык общения - английский, испанский, русский )",
+                sherif: "М-р Шериф: WhatsApp +20 109 617 6893 ( язык общения - арабский )"
+            },
+            UA: { 
+                title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", 
+                b1: "апартаменти з однією спальнею (вітальня, спальня, кухня, ванна кімната)", 
+                b2: "апартаменти з двома спальнями (вітальня, дві спальні, кухня, з двома ванними кімнатами)", 
+                nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", admin: "Управління системою", contacts: "Контакти",
+                viktor: "М-р Віктор: WhatsApp +34 673 567 996 ( мова спілкування - англійська, іспанська, російська )",
+                sherif: "М-р Шериф: WhatsApp +20 109 617 6893 ( мова спілкування - арабська )"
+            },
+            EG: { 
+                title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", 
+                b1: "شقق غرفة نوم واحدة (غرفة معيشة، غرفة نوم، مطبخ، حمام)", 
+                b2: "شقق غرفتين نوم (غرفة معيشة، غرفتين نوم، مطبخ، مع حمامين)", 
+                nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", admin: "لوحة التحكم", contacts: "اتصال",
+                viktor: "السيد فيكتور: WhatsApp +34 673 567 996 ( لغة التواصل - الإنجليزية والإسبانية والروسية )",
+                sherif: "السيد شريف: WhatsApp +20 109 617 6893 ( لغة التواصل - العربية )"
+            },
+            ES: { 
+                title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", 
+                b1: "apartamentos de un dormitorio (sala, dormitorio, cocina, baño)", 
+                b2: "apartamentos de dos dormitorios (sala, dos dormitorios, cocina, con dos baños)", 
+                nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", admin: "Administración", contacts: "Contactos",
+                viktor: "Sr. Viktor: WhatsApp +34 673 567 996 ( idioma de comunicación - inglés, español, ruso )",
+                sherif: "Sr. Sherif: WhatsApp +20 109 617 6893 ( idioma de comunicación - árabe )"
+            },
+            IL: { 
+                title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", 
+                b1: "דירות חדר שינה אחד (סלון, חדר שינה, מטבח, חדר רחצה)", 
+                b2: "דירות שני חדרי שינה (סלון, שני חדרי שינה, מטבח, עם שני חדרי רחצה)", 
+                nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", admin: "פאנל ניהול", contacts: "אנשי קשר",
+                viktor: "מר ויקטור: WhatsApp +34 673 567 996 ( שפת תקשורת - אנגלית, ספרדית, רוסית )",
+                sherif: "מר שריף: WhatsApp +20 109 617 6893 ( שפת תקשורת - ערבית )"
+            }
+        };
 
-        // Запуск при загрузке страницы
+        const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
+        let lockedDatesDB = {}; 
+        let currentApt = ""; 
+        let currentPrice = 0;
+        let currentGalleryApt = ""; 
+        let currentImgIdx = 1;
+        let currentLang = 'GB';
+        let adminPicker;
+
+        // УМНАЯ ФУНКЦИЯ ДЛЯ ФОТО (jpg/JPG)
+        function fixImageExtension(img) {
+            if (img.src.includes('.jpg')) {
+                img.src = img.src.replace('.jpg', '.JPG');
+            } else if (img.src.includes('.JPG')) {
+                img.src = img.src.replace('.JPG', '.jpg');
+            }
+            // Чтобы не зациклиться, удаляем обработчик после попытки
+            img.onerror = null; 
+        }
+
         window.onload = () => {
             renderGrids();
-            // Слушаем изменения заблокированных дат в БД
+            setLang('GB');
             database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
         };
 
-        // Отрисовка сеток квартир
+        function setLang(lang) {
+            currentLang = lang;
+            const t = i18n[lang];
+            document.body.dir = (lang === 'IL') ? 'rtl' : 'ltr';
+            document.getElementById('main-title').innerText = t.title;
+            document.getElementById('main-subtitle').innerText = t.sub;
+            document.getElementById('title-1bed').innerText = t.b1;
+            document.getElementById('title-2bed').innerText = t.b2;
+            document.getElementById('txt-nights').innerText = t.nights;
+            document.getElementById('txt-discount').innerText = t.disc;
+            document.getElementById('btn-book-action').innerText = t.book;
+            document.getElementById('date-picker').placeholder = t.placeholder;
+            document.getElementById('txt-total').innerText = t.total;
+            document.getElementById('footer-contacts-title').innerText = t.contacts;
+            document.getElementById('contact-viktor').innerText = t.viktor;
+            document.getElementById('contact-sherif').innerText = t.sherif;
+            document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
+            const activeBtn = document.getElementById(`btn-${lang}`);
+            if(activeBtn) activeBtn.classList.add('lang-active');
+            const adminLink = document.getElementById('admin-link-wrapper');
+            if(lang === 'RU') adminLink.classList.remove('hidden');
+            else adminLink.classList.add('hidden');
+        }
+
         function renderGrids() {
             const one = ["601", "602", "603", "605", "606", "609"];
             const two = ["201", "202", "203", "204", "205", "206"];
             const oGrid = document.getElementById('one-bed-grid');
             const tGrid = document.getElementById('two-bed-grid');
-            one.forEach(n => oGrid.innerHTML += createCard(n, 90));
-            two.forEach(n => tGrid.innerHTML += createCard(n, 180));
+            one.forEach(n => oGrid.innerHTML += createCard(n, 90, "1 Bedroom"));
+            two.forEach(n => tGrid.innerHTML += createCard(n, 180, "2 Bedrooms"));
         }
 
-        // Создание HTML-кода карточки
-        function createCard(n, p) {
+        function createCard(n, p, t) {
             return `
-                <div class="apt-card shadow-sm">
-                    <div class="aspect-[16/10] relative group overflow-hidden">
-                        <img src="images/${n}/1.jpg" 
-                             onclick="openGallery('${n}')" 
-                             onerror="this.onerror=null; this.src='images/${n}/1.JPG';"
-                             class="w-full h-full object-cover cursor-zoom-in transition duration-1000 group-hover:scale-110">
-                        <div class="absolute top-6 right-6 bg-white px-5 py-2 rounded-full font-black shadow-2xl text-xl border-2 border-white italic">$${p}</div>
+                <div class="apt-card">
+                    <div class="apt-img-container">
+                        <img src="images/${n}/1.jpg" onclick="openGallery('${n}')" onerror="fixImageExtension(this)" class="w-full h-full object-cover cursor-zoom-in transition duration-700 group-hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black shadow-lg text-lg italic text-red-600">$${p}</div>
                     </div>
-                    <div class="p-10 bg-white">
-                        <h3 class="font-black text-3xl tracking-tighter uppercase text-gray-900 mb-6">Apt #${n}</h3>
-                        <button onclick="openBook('${n}', ${p})" class="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-widest shadow-2xl transition hover:bg-black">Book Now</button>
+                    <div class="p-8 pt-2 text-center">
+                        <h3 class="font-black text-2xl tracking-tighter uppercase text-gray-900">Apartment #${n}</h3>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
+                        <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
                 </div>`;
         }
 
-        // Функции Галереи
-        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
+        function openGallery(apt) { 
+            currentGalleryApt = apt; 
+            currentImgIdx = 1; 
+            updateGalleryImg(); 
+            document.getElementById('gallery-modal').classList.add('active'); 
+        }
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
-            const smallPath = `images/${currentGalleryApt}/${currentImgIdx}.jpg`;
-            const bigPath = `images/${currentGalleryApt}/${currentImgIdx}.JPG`;
-            
-            img.src = smallPath; // Сначала пробуем маленькие
-            img.onerror = function() {
-                this.onerror = null; // Предотвращаем бесконечный цикл
-                this.src = bigPath; // Если ошибка, пробуем большие
-            };
+            img.style.opacity = '0';
+            setTimeout(() => {
+                // Пытаемся загрузить как .jpg
+                img.onerror = () => fixImageExtension(img);
+                img.src = `images/${currentGalleryApt}/${currentImgIdx}.jpg`;
+                document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`;
+                img.style.opacity = '1';
+            }, 150);
         }
-        function nextImg() { currentImgIdx = currentImgIdx === 3 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
-        function prevImg() { currentImgIdx = currentImgIdx === 1 ? 3 : currentImgIdx - 1; updateGalleryImg(); }
+        function nextImg() { currentImgIdx = currentImgIdx === 20 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
+        function prevImg() { currentImgIdx = currentImgIdx === 1 ? 20 : currentImgIdx - 1; updateGalleryImg(); }
 
-        // Функции Бронирования
         function openBook(no, price) {
             currentApt = no; currentPrice = price;
-            document.getElementById('modal-title').innerText = `Apartment #${no}`;
+            document.getElementById('modal-apt-title').innerText = `Apartment #${no}`;
             document.getElementById('book-modal').classList.add('active');
-            
-            // Инициализация календаря
             flatpickr("#date-picker", {
-                mode: "range",
-                minDate: "today",
-                disable: lockedDatesDB[no] || [], // Блокируем даты из БД
-                dateFormat: "d.m.Y",
+                mode: "range", minDate: "today", disable: lockedDatesDB[no] || [], dateFormat: "d.m.Y",
                 onChange: (dates) => {
                     if (dates.length === 2) {
-                        const nights = Math.ceil((dates[1]-dates[0])/(1000*60*60*24));
+                        const start = dates[0], end = dates[1];
+                        const isOverlap = (lockedDatesDB[no] || []).some(d => { const ld = new Date(d); return ld >= start && ld <= end; });
+                        if(isOverlap) { alert("Dates are occupied!"); document.getElementById('date-picker')._flatpickr.clear(); return; }
+                        const nights = Math.ceil((end - start)/(1000*60*60*24));
+                        let disc = discounts[nights>=14 ? 14 : nights>=7 ? 7 : nights>=5 ? 5 : nights>=4 ? 4 : nights>=3 ? 3 : 0] || 0;
                         document.getElementById('price-calc').classList.remove('hidden');
                         document.getElementById('res-nights').innerText = nights;
-                        document.getElementById('res-total').innerText = "$" + (nights * price);
+                        document.getElementById('res-discount').innerText = (disc*100).toFixed(0)+"%";
+                        document.getElementById('res-total').innerText = "$" + ((nights * price)*(1-disc)).toFixed(0);
                     }
                 }
             });
         }
 
-        // Вспомогательные функции
-        function checkAdminPassword() { if (prompt("Password:") === "1234") alert("Admin mode - Coming soon"); }
+        function checkAdminPassword() {
+            const pass = prompt("Password:");
+            if (pass === "1234") {
+                const sel = document.getElementById('admin-apt-select');
+                if(sel.innerHTML === "") {
+                    ["201", "202", "203", "204", "205", "206", "601", "602", "603", "605", "606", "609"].sort().forEach(u => {
+                        sel.innerHTML += `<option value="${u}">Apt #${u}</option>`;
+                    });
+                }
+                document.getElementById('admin-modal').classList.add('active');
+                refreshAdminCalendar();
+            }
+        }
+
+        function refreshAdminCalendar() {
+            const apt = document.getElementById('admin-apt-select').value;
+            const already = (lockedDatesDB[apt] || []).sort();
+            document.getElementById('admin-status-view').innerHTML = already.length > 0 ? 
+                `<div class="grid grid-cols-2 gap-2 uppercase text-[9px]">${already.map(d => `<div class="bg-red-50 p-2 border border-red-100 rounded-lg text-red-600 font-bold">${d}</div>`).join('')}</div>` : 
+                "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
+            adminPicker = flatpickr("#admin-date-picker", { 
+                mode: "multiple", dateFormat: "Y-m-d", 
+                onDayCreate: (dObj, dStr, fp, dayElem) => { 
+                    if (already.includes(dayElem.dateObj.toISOString().split('T')[0])) dayElem.classList.add("already-locked"); 
+                } 
+            });
+        }
+
+        function changeDatesStatus(lock) {
+            const apt = document.getElementById('admin-apt-select').value;
+            const sel = adminPicker.selectedDates.map(d => d.toISOString().split('T')[0]);
+            if (!sel.length) return;
+            let up = lock ? [...new Set([...(lockedDatesDB[apt] || []), ...sel])] : (lockedDatesDB[apt] || []).filter(d => !sel.includes(d));
+            database.ref('lockedDates/' + apt).set(up).then(() => { refreshAdminCalendar(); adminPicker.clear(); });
+        }
+
+        function lockForYear() {
+            const apt = document.getElementById('admin-apt-select').value;
+            if(confirm("Lock 1 year?")) {
+                let d = []; let s = new Date();
+                for(let i=0; i<365; i++) { d.push(s.toISOString().split('T')[0]); s.setDate(s.getDate()+1); }
+                database.ref('lockedDates/' + apt).set(d).then(refreshAdminCalendar);
+            }
+        }
+
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function sendWhatsApp() { window.open(`https://wa.me/34673567996?text=Booking request for Apt #${currentApt}, Dates: ${document.getElementById('date-picker').value}`); }
+        function sendWhatsApp() {
+            const dates = document.getElementById('date-picker').value;
+            const total = document.getElementById('res-total').innerText;
+            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${dates}\nTotal: ${total}`;
+            window.open(`https://wa.me/34673567996?text=${encodeURIComponent(msg)}`);
+        }
     </script>
 </body>
 </html>
