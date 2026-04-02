@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.9</title>
+    <title>Amwaj Booking System V.3.2.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -39,7 +39,7 @@
     </nav>
 
     <header class="text-center py-16 bg-white border-b">
-        <h1 id="main-title" class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter font-sans">Amwaj Apartments</h1>
+        <h1 id="main-title" class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter">Amwaj Apartments</h1>
         <p id="main-subtitle" class="text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
         <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
     </header>
@@ -85,14 +85,14 @@
     <div id="admin-modal" class="modal">
         <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left text-gray-800">
             <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
-            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic font-sans">ADMIN PANEL</h2>
+            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="space-y-4">
                     <select id="admin-apt-select" onchange="refreshAdminCalendar()" class="w-full border-2 border-gray-100 p-4 rounded-xl font-bold"></select>
                     <input type="text" id="admin-date-picker" class="w-full border-2 border-gray-100 p-4 rounded-xl text-center font-bold" placeholder="Select dates">
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Lock Dates</button>
-                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Open Dates</button>
+                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs">Lock Dates</button>
+                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs">Open Dates</button>
                     </div>
                     <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
                 </div>
@@ -138,14 +138,14 @@
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
         let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
-        // НОВАЯ ЛОГИКА ПРЕВЬЮ: ИЩЕМ СТРОГО ФАЙЛ "pre.jpg"
+        // СТРОГОЕ ПРЕВЬЮ: thumb1.jpg
         function loadPreview(img, folder) {
-            const path = folder + "/pre";
+            const path = folder + "/thumb1";
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
                 this.onerror = function() { 
-                    this.src = "https://via.placeholder.com/400x300?text=Rename+photo+to+pre.jpg"; 
+                    this.src = "https://via.placeholder.com/400x300?text=Needs+thumb1.jpg"; 
                     this.onerror = null;
                 };
             };
@@ -208,7 +208,7 @@
                     </div>
                     <div class="p-8 text-center text-gray-900">
                         <h3 class="font-black text-2xl uppercase tracking-tighter">Apartment #${n}</h3>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 font-sans">${t}</p>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
                         <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
                 </div>`;
