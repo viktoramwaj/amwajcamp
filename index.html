@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.13</title>
+    <title>Amwaj Booking System V.4.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -21,6 +21,8 @@
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; transition: 0.3s; }
         .nav-btn:hover { background: rgba(255,255,255,0.3); }
         .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
+        .info-card { background: white; border-radius: 2rem; padding: 2rem; border: 1px solid #f3f4f6; transition: 0.3s; }
+        .info-card:hover { border-color: #ef4444; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
     </style>
@@ -45,11 +47,45 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-16">
-        <div class="mb-12 flex items-center"><h2 id="title-1bed" class="text-4xl font-black border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span></div>
+        <div class="mb-12 flex items-center"><h2 id="title-1bed" class="text-4xl font-black border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span></div>
         <div id="one-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24"></div>
 
-        <div class="mb-12 flex items-center"><h2 id="title-2bed" class="text-4xl font-black border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></div>
+        <div class="mb-12 flex items-center"><h2 id="title-2bed" class="text-4xl font-black border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></div>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
+
+        <h2 id="title-info-section" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">Useful Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
+            <div class="info-card">
+                <i class="fas fa-utensils text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t1" class="text-xl font-black uppercase mb-2">Food & Drinks</h3>
+                <p id="info-d1" class="text-gray-500 text-sm italic">Fish Market, Hard Rock Cafe, Farsha Lounge.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-car text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t2" class="text-xl font-black uppercase mb-2">Transport</h3>
+                <p id="info-d2" class="text-gray-500 text-sm italic">InDrive, Uber, local blue taxis (negotiate price).</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-umbrella-beach text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t3" class="text-xl font-black uppercase mb-2">Beaches</h3>
+                <p id="info-d3" class="text-gray-500 text-sm italic">Amwaj Private Beach, El Fanar, Terrazzina.</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-shopping-cart text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t4" class="text-xl font-black uppercase mb-2">Shopping</h3>
+                <p id="info-d4" class="text-gray-500 text-sm italic">Metro Market, Carrefour, Old Market (souq).</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-pills text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t5" class="text-xl font-black uppercase mb-2">Pharmacy</h3>
+                <p id="info-d5" class="text-gray-500 text-sm italic">El Ezaby, local pharmacies (ask for El-Rowaisat prices).</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-wifi text-red-600 text-3xl mb-4"></i>
+                <h3 id="info-t6" class="text-xl font-black uppercase mb-2">SIM Cards</h3>
+                <p id="info-d6" class="text-gray-500 text-sm italic">Vodafone, Etisalat, WE. Better buy in Soho Square.</p>
+            </div>
+        </div>
     </main>
 
     <div id="gallery-modal" class="modal">
@@ -87,18 +123,17 @@
                     <select id="admin-apt-select" onchange="refreshAdminCalendar()" class="w-full border-2 border-gray-100 p-4 rounded-xl font-bold"></select>
                     <input type="text" id="admin-date-picker" class="w-full border-2 border-gray-100 p-4 rounded-xl text-center font-bold" placeholder="Select dates">
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs">Lock Dates</button>
-                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs">Open Dates</button>
+                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Lock Dates</button>
+                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Open Dates</button>
                     </div>
-                    <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
                 </div>
-                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto shadow-inner"></div>
+                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto"></div>
             </div>
         </div>
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
             <div class="space-y-3 mb-10 text-center">
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
@@ -123,12 +158,18 @@
         const database = firebase.database();
 
         const i18n = {
-            GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893" },
-            RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893" },
-            UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893" },
-            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد вكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
-            ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893" },
-            IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893" }
+            GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893", 
+                info: "Useful Information", it1: "Food & Drinks", id1: "Fish Market, Hard Rock Cafe, Farsha Lounge.", it2: "Transport", id2: "InDrive, Uber, local taxis.", it3: "Beaches", id3: "Amwaj Beach, El Fanar, Terrazzina.", it4: "Shopping", id4: "Metro Market, Carrefour, Old Market.", it5: "Pharmacy", id5: "El Ezaby, ask local price.", it6: "SIM Cards", id6: "Vodafone, Etisalat, WE." },
+            RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
+                info: "Полезная информация", it1: "Еда и напитки", id1: "Рыбный рынок, Hard Rock Cafe, Farsha Lounge.", it2: "Транспорт", id2: "InDrive, Uber, синие такси (торгуйтесь).", it3: "Пляжи", id3: "Пляж Amwaj, El Fanar, Terrazzina.", it4: "Магазины", id4: "Metro Market, Carrefour, Старый город.", it5: "Аптеки", id5: "El Ezaby, спрашивайте цену для местных.", it6: "SIM-карты", id6: "Vodafone, Etisalat, WE." },
+            UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
+                info: "Корисна інформація", it1: "Їжа та напої", id1: "Рибний ринок, Hard Rock Cafe, Farsha Lounge.", it2: "Транспорт", id2: "InDrive, Uber, сині таксі.", it3: "Пляжі", id3: "Пляж Amwaj, El Fanar, Terrazzina.", it4: "Магазини", id4: "Metro Market, Carrefour, Старе місто.", it5: "Аптеки", id5: "El Ezaby, ціни для місцевих.", it6: "SIM-картки", id6: "Vodafone, Etisalat, WE." },
+            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893",
+                info: "معلومات مفيدة", it1: "الأكل والشرب", id1: "سوق السمك، هارد روك كافيه، فرشة لونج.", it2: "النقل", id2: "InDrive, Uber, التاكسي الأزرق.", it3: "الشواطئ", id3: "شاطئ أمواج، الفنار، تيرازينا.", it4: "التسوق", id4: "مترو ماركت، كارفور، السوق القديم.", it5: "الصيدليات", id5: "العزبي، اسأل عن أسعار المحليين.", it6: "بطاقات SIM", id6: "فودافون، اتصالات، وي." },
+            ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893",
+                info: "Información útil", it1: "Comida y Bebida", id1: "Mercado de pescado, Hard Rock Cafe, Farsha Lounge.", it2: "Transporte", id2: "InDrive, Uber, taxis locales.", it3: "Playas", id3: "Playa Amwaj, El Fanar, Terrazzina.", it4: "Compras", id4: "Metro Market, Carrefour, Old Market.", it5: "Farmacias", id5: "El Ezaby, pida precio local.", it6: "Tarjetas SIM", id6: "Vodafone, Etisalat, WE." },
+            IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893",
+                info: "מידע שימושי", it1: "אוכל ושתייה", id1: "שוק הדגים, Hard Rock Cafe, Farsha Lounge.", it2: "תחבורה", id2: "InDrive, Uber, מוניות כחולות.", it3: "חופים", id3: "חוף אמואז', אל פנאר, טרזינה.", it4: "קניות", id4: "מטרו מרקט, קארפור, העיר העתיקה.", it5: "בתי מרקחת", id5: "אל עזאבי, בקשו מחיר מקומי.", it6: "כרטיסי SIM", id6: "Vodafone, Etisalat, WE." }
         };
 
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
@@ -139,7 +180,7 @@
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
-                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Wait+for+thumb1.jpg"; this.onerror = null; };
+                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=thumb1.jpg+Missing"; this.onerror = null; };
             };
         }
 
@@ -164,6 +205,11 @@
             document.getElementById('footer-contacts-title').innerText = t.contacts;
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
+            document.getElementById('title-info-section').innerText = t.info;
+            for(let i=1; i<=6; i++) {
+                document.getElementById('info-t'+i).innerText = t['it'+i];
+                document.getElementById('info-d'+i).innerText = t['id'+i];
+            }
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
             document.getElementById(`btn-${lang}`).classList.add('lang-active');
             document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
@@ -177,23 +223,16 @@
             oGrid.innerHTML = ""; tGrid.innerHTML = "";
             one.forEach(n => oGrid.innerHTML += createCard(n, 90, "1 Bedroom"));
             two.forEach(n => tGrid.innerHTML += createCard(n, 180, "2 Bedrooms"));
+            document.querySelectorAll('.main-preview').forEach(img => smartLoad(img, img.getAttribute('data-apt'), 'thumb1'));
         }
 
         function createCard(n, p, t) {
-            const cardId = `card-img-${n}`;
-            setTimeout(() => { smartLoad(document.getElementById(cardId), n, 'thumb1'); }, 1);
-            return `
-                <div class="apt-card shadow-sm">
-                    <div class="apt-img-container">
-                        <img id="${cardId}" class="w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
-                    </div>
-                    <div class="p-8 text-center text-gray-900">
-                        <h3 class="font-black text-2xl uppercase tracking-tighter">Apartment #${n}</h3>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 font-sans">${t}</p>
-                        <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
-                    </div>
-                </div>`;
+            return `<div class="apt-card shadow-sm">
+                <div class="apt-img-container"><img data-apt="${n}" class="main-preview w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
+                <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div></div>
+                <div class="p-8 text-center text-gray-900"><h3 class="font-black text-2xl uppercase tracking-tighter">Apartment #${n}</h3>
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
+                <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button></div></div>`;
         }
 
         function openBook(no, price) {
@@ -225,7 +264,6 @@
                 img.onerror = function() {
                     this.src = path + ".JPG";
                     this.onerror = function() { 
-                        // Если thumb1 не найден или фото закончились, возвращаемся к началу
                         if (currentImgIdx === "thumb1") { currentImgIdx = 1; updateGalleryImg(); }
                         else if (currentImgIdx > 1) { currentImgIdx = "thumb1"; updateGalleryImg(); }
                     };
