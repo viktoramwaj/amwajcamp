@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.11</title>
+    <title>Amwaj Booking System V.3.1.12</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -134,13 +134,18 @@
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
         let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
-        function smartLoad(img, folder, fileNum) {
-            const path = folder + "/" + fileNum;
-            img.src = path + ".jpg";
-            img.onerror = function() {
-                this.src = path + ".JPG";
-                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Check+thumb.jpg"; this.onerror = null; };
+        // ПУЛЕНЕПРОБИВАЕМАЯ ЗАГРУЗКА
+        function smartLoad(img, folder, file) {
+            const baseUrl = "./" + folder + "/" + file;
+            const testJpg = new Image();
+            testJpg.onload = () => { img.src = testJpg.src; };
+            testJpg.onerror = () => {
+                const testJPG = new Image();
+                testJPG.onload = () => { img.src = testJPG.src; };
+                testJPG.onerror = () => { img.src = "https://via.placeholder.com/400x300?text=Error+Loading"; };
+                testJPG.src = baseUrl + ".JPG";
             };
+            testJpg.src = baseUrl + ".jpg";
         }
 
         window.onload = () => {
@@ -180,9 +185,8 @@
         }
 
         function createCard(n, p, t) {
-            // ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ПРЕВЬЮ ПРИ СОЗДАНИИ
-            const cardId = `card-img-${n}`;
-            setTimeout(() => { smartLoad(document.getElementById(cardId), n, 'thumb'); }, 10);
+            const cardId = `img-apt-${n}`;
+            setTimeout(() => { smartLoad(document.getElementById(cardId), n, 'thumb'); }, 1);
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
@@ -221,12 +225,16 @@
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
             setTimeout(() => {
-                const path = currentGalleryApt + "/" + currentImgIdx;
-                img.src = path + ".jpg";
-                img.onerror = function() {
-                    this.src = path + ".JPG";
-                    this.onerror = function() { if (currentImgIdx > 1) { currentImgIdx = 1; updateGalleryImg(); } };
+                const baseUrl = "./" + currentGalleryApt + "/" + currentImgIdx;
+                const tJ = new Image();
+                tJ.onload = () => { img.src = tJ.src; };
+                tJ.onerror = () => {
+                    const tB = new Image();
+                    tB.onload = () => { img.src = tB.src; };
+                    tB.onerror = () => { if (currentImgIdx > 1) { currentImgIdx = 1; updateGalleryImg(); } };
+                    tB.src = baseUrl + ".JPG";
                 };
+                tJ.src = baseUrl + ".jpg";
                 document.getElementById('gallery-counter').innerText = currentImgIdx;
                 img.style.opacity = '1';
             }, 150);
