@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.7</title>
+    <title>Amwaj Booking System V.3.1.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -23,13 +23,12 @@
         .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
-        nav .lang-container { width: 100%; display: flex; justify-content: center; gap: 1rem; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
     <nav class="bg-white py-6 shadow-sm px-8 sticky top-0 z-40">
-        <div class="lang-container text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
+        <div class="flex justify-center gap-4 text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
             <span onclick="setLang('GB')" id="btn-GB">GB</span>
             <span onclick="setLang('RU')" id="btn-RU">RU</span>
             <span onclick="setLang('UA')" id="btn-UA">UA</span>
@@ -62,7 +61,7 @@
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
         <div class="relative group">
             <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500">
-            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">1 / 20</div>
+            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">1</div>
         </div>
         <div onclick="nextImg()" class="nav-btn right-10"><i class="fas fa-chevron-right"></i></div>
     </div>
@@ -84,7 +83,7 @@
     </div>
 
     <div id="admin-modal" class="modal">
-        <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left">
+        <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left text-gray-800">
             <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
             <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -97,21 +96,19 @@
                     </div>
                     <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
                 </div>
-                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto shadow-inner"></div>
+                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto"></div>
             </div>
         </div>
     </div>
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
-            <div class="space-y-3 mb-10">
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
-                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
+            <div class="space-y-3 mb-10 text-center">
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic"></p></div>
+                <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic"></p></div>
             </div>
-            <div id="admin-link-wrapper" class="mb-6 hidden">
-                <button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">ADMIN SYSTEM</button>
-            </div>
+            <div id="admin-link-wrapper" class="mb-6 hidden"><button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">ADMIN SYSTEM</button></div>
         </div>
         <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 absolute bottom-0 left-0"></div>
     </footer>
@@ -141,12 +138,26 @@
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
         let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
-        function smartLoad(img, folder, fileNum) {
-            const path = folder + "/" + fileNum;
-            img.src = path + ".jpg";
+        // ИСПРАВЛЕННЫЙ УМНЫЙ ЗАГРУЗЧИК ПРЕВЬЮ
+        function findFirstPreview(img, folder, attempt = 1) {
+            if (attempt > 20) { // Если не нашли ни одного из 20 файлов
+                img.src = "https://via.placeholder.com/400x300?text=No+Photo";
+                return;
+            }
+            const testImg = new Image();
+            testImg.src = folder + "/" + attempt + ".jpg";
+            testImg.onload = () => { img.src = testImg.src; };
+            testImg.onerror = () => { findFirstPreview(img, folder, attempt + 1); };
+        }
+
+        // ЗАГРУЗЧИК ГАЛЕРЕИ
+        function smartGalleryLoad(img, folder, idx) {
+            const path = folder + "/" + idx + ".jpg";
+            img.src = path;
             img.onerror = function() {
-                this.src = path + ".JPG";
-                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Needs+1.jpg"; this.onerror = null; };
+                // Если фото не найдено, значит мы дошли до конца папки (например, фото 9 не существует)
+                // Сбрасываем на 1
+                if (idx > 1) { currentImgIdx = 1; smartGalleryLoad(img, folder, 1); }
             };
         }
 
@@ -154,8 +165,7 @@
             renderGrids();
             setLang('GB');
             database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
-            const imgs = document.querySelectorAll('.main-preview');
-            imgs.forEach(img => smartLoad(img, img.getAttribute('data-apt'), '1'));
+            document.querySelectorAll('.main-preview').forEach(img => findFirstPreview(img, img.getAttribute('data-apt')));
         };
 
         function setLang(lang) {
@@ -195,7 +205,7 @@
                         <img data-apt="${n}" class="main-preview w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
-                    <div class="p-8 text-center">
+                    <div class="p-8 text-center text-gray-900">
                         <h3 class="font-black text-2xl uppercase tracking-tighter">Apartment #${n}</h3>
                         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
                         <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
@@ -222,6 +232,15 @@
             });
         }
 
+        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
+        function updateGalleryImg() { 
+            const img = document.getElementById('gallery-img-content');
+            img.style.opacity = '0';
+            setTimeout(() => { smartGalleryLoad(img, currentGalleryApt, currentImgIdx); document.getElementById('gallery-counter').innerText = currentImgIdx; img.style.opacity = '1'; }, 150);
+        }
+        function nextImg() { currentImgIdx = currentImgIdx >= 20 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
+        function prevImg() { currentImgIdx = currentImgIdx <= 1 ? 20 : currentImgIdx - 1; updateGalleryImg(); }
+
         function checkAdminPassword() {
             if (prompt("Password:") === "1234") {
                 const sel = document.getElementById('admin-apt-select');
@@ -230,14 +249,12 @@
                 refreshAdminCalendar();
             }
         }
-
         function refreshAdminCalendar() {
             const apt = document.getElementById('admin-apt-select').value;
             const already = (lockedDatesDB[apt] || []).sort();
             document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
             adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
         }
-
         function changeDatesStatus(lock) {
             const apt = document.getElementById('admin-apt-select').value;
             const sel = adminPicker.selectedDates.map(d => d.toISOString().split('T')[0]);
@@ -245,7 +262,6 @@
             let up = lock ? [...new Set([...(lockedDatesDB[apt] || []), ...sel])] : (lockedDatesDB[apt] || []).filter(d => !sel.includes(d));
             database.ref('lockedDates/' + apt).set(up).then(() => { refreshAdminCalendar(); adminPicker.clear(); });
         }
-
         function lockForYear() {
             const apt = document.getElementById('admin-apt-select').value;
             if(confirm("Lock 1 year?")) {
@@ -254,20 +270,9 @@
                 database.ref('lockedDates/' + apt).set(d).then(refreshAdminCalendar);
             }
         }
-
-        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
-        function updateGalleryImg() { 
-            const img = document.getElementById('gallery-img-content');
-            img.style.opacity = '0';
-            setTimeout(() => { smartLoad(img, currentGalleryApt, currentImgIdx); document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`; img.style.opacity = '1'; }, 150);
-        }
-        function nextImg() { currentImgIdx = currentImgIdx === 20 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
-        function prevImg() { currentImgIdx = currentImgIdx === 1 ? 20 : currentImgIdx - 1; updateGalleryImg(); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         function sendWhatsApp() {
-            const dates = document.getElementById('date-picker').value;
-            const total = document.getElementById('res-total').innerText;
-            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${dates}\nTotal: ${total}`;
+            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${document.getElementById('date-picker').value}\nTotal: ${document.getElementById('res-total').innerText}`;
             window.open(`https://wa.me/34673567996?text=${encodeURIComponent(msg)}`);
         }
     </script>
