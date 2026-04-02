@@ -3,95 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Apartments 4.0</title>
+    <title>Amwaj Luxury Apartments</title>
     <style>
-        /* Стили прямо здесь, как и было раньше */
-        body { font-family: sans-serif; margin: 0; padding: 20px; background: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 40px 20px; }
         
-        /* Сетка апартаментов */
-        .apt-grid { display: flex; gap: 20px; justify-content: center; margin-bottom: 50px; }
-        .apt-card { background: #fff; padding: 20px; border-radius: 20px; width: 250px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .btn-book { background: #d90429; color: white; border: none; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        /* Сетка апартаментов (Верхняя часть) */
+        .apt-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto 60px auto; 
+        }
 
-        /* Те самые 6 блоков из чата */
+        .apt-card { 
+            background: #fff; 
+            border-radius: 30px; 
+            padding: 40px 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+        }
+
+        .apt-card h2 { font-size: 28px; margin: 0 0 10px 0; font-weight: 800; color: #000; }
+        .apt-card p { font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        /* Кнопка BOOK NOW (Черная, как на 1-м фото) */
+        .btn-book { 
+            background: #1a1b21; 
+            color: #fff; 
+            border: none; 
+            padding: 15px 60px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        .btn-book:hover { transform: scale(1.05); }
+
+        /* Сетка ИНФО-БЛОКОВ (Нижняя часть) */
         .info-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
             max-width: 1200px; 
             margin: 0 auto; 
         }
+
         .info-card { 
             background: #fff; 
-            padding: 25px; 
-            border-radius: 25px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-bottom: 6px solid #ccc;
+            border-radius: 30px; 
+            padding: 30px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03); 
+            border-bottom: 8px solid #ddd; 
         }
-        .info-card h4 { margin-top: 0; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; }
-        .info-card p { font-size: 14px; color: #333; line-height: 1.4; }
 
-        /* Цвета нижних полосок */
-        .border-red { border-color: #ff4d4d; }
-        .border-blue { border-color: #007bff; }
-        .border-green { border-color: #28a745; }
-        .border-orange { border-color: #fd7e14; }
-        .border-purple { border-color: #6f42c1; }
-        .border-cyan { border-color: #17a2b8; }
+        .info-card h4 { margin: 0 0 15px 0; font-size: 14px; font-weight: bold; text-transform: uppercase; }
+        .info-card p { font-size: 14px; line-height: 1.6; color: #444; margin: 0; font-style: italic; }
 
-        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } .apt-grid { flex-direction: column; align-items: center; } }
+        /* Цвета полосок */
+        .border-red { border-color: #d32f2f; h4 { color: #d32f2f; } }
+        .border-blue { border-color: #1976d2; h4 { color: #1976d2; } }
+        .border-green { border-color: #388e3c; h4 { color: #388e3c; } }
+        .border-orange { border-color: #f57c00; h4 { color: #f57c00; } }
+        .border-purple { border-color: #7b1fa2; h4 { color: #7b1fa2; } }
+        .border-cyan { border-color: #0097a7; h4 { color: #0097a7; } }
+
+        h1.section-title { text-align: center; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; color: #d32f2f; }
     </style>
 </head>
 <body>
 
-    <div class="apt-grid">
-        <div class="apt-card">
-            <h2>APT #204</h2>
-            <p>TWO BEDROOM</p>
-            <button class="btn-book">BOOK</button>
+    <div class="apt-grid" id="apt-container">
         </div>
-        <div class="apt-card">
-            <h2>APT #205</h2>
-            <p>TWO BEDROOM</p>
-            <button class="btn-book">BOOK</button>
-        </div>
-        <div class="apt-card">
-            <h2>APT #206</h2>
-            <p>TWO BEDROOM</p>
-            <button class="btn-book">BOOK</button>
-        </div>
-    </div>
+
+    <h1 class="section-title">Contacts</h1>
 
     <div class="info-grid">
         <div class="info-card border-red">
-            <h4 style="color: #ff4d4d;">ОБ АПАРТАМЕНТАХ</h4>
+            <h4>ОБ АПАРТАМЕНТАХ</h4>
             <p>Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.</p>
         </div>
         <div class="info-card border-blue">
-            <h4 style="color: #007bff;">ОТДЫХ И ПЛЯЖ</h4>
+            <h4>ОТДЫХ И ПЛЯЖ</h4>
             <p>Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.</p>
         </div>
         <div class="info-card border-green">
-            <h4 style="color: #28a745;">ТРАНСПОРТ</h4>
+            <h4>ТРАНСПОРТ</h4>
             <p>Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.</p>
         </div>
         <div class="info-card border-orange">
-            <h4 style="color: #fd7e14;">МАГАЗИНЫ И ЕДА</h4>
+            <h4>МАГАЗИНЫ И ЕДА</h4>
             <p>Супермаркеты Metro и Ragab Sons в 5 минутах ходьбы. McDonald's и KFC через дорогу.</p>
         </div>
         <div class="info-card border-purple">
-            <h4 style="color: #6f42c1;">СЕРВИС 24/7</h4>
+            <h4>СЕРВИС 24/7</h4>
             <p>Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.</p>
         </div>
         <div class="info-card border-cyan">
-            <h4 style="color: #17a2b8;">РАЗВЛЕЧЕНИЯ</h4>
+            <h4>РАЗВЛЕЧЕНИЯ</h4>
             <p>В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay.</p>
         </div>
     </div>
 
     <script>
-        // Проверка версии
-        console.log("Сайт Amwaj 4.0 запущен. Все блоки на месте.");
+        // Данные всех твоих 12 апартаментов
+        const apartments = [
+            201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212
+        ];
+
+        const container = document.getElementById('apt-container');
+        
+        apartments.forEach(num => {
+            container.innerHTML += `
+                <div class="apt-card">
+                    <h2>APARTMENT #${num}</h2>
+                    <p>2 BEDROOMS</p>
+                    <button class="btn-book">BOOK NOW</button>
+                </div>
+            `;
+        });
     </script>
 </body>
 </html>
