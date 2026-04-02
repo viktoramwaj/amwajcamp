@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.2</title>
+    <title>Amwaj Booking System V.3.1.13</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -23,14 +23,12 @@
         .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
-        /* Центрирование навигации после удаления текста */
-        nav .lang-container { width: 100%; display: flex; justify-content: center; gap: 1rem; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 font-sans text-center md:text-left">
 
     <nav class="bg-white py-6 shadow-sm px-8 sticky top-0 z-40">
-        <div class="lang-container text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
+        <div class="flex justify-center gap-4 text-[12px] font-black text-gray-400 tracking-widest uppercase cursor-pointer">
             <span onclick="setLang('GB')" id="btn-GB">GB</span>
             <span onclick="setLang('RU')" id="btn-RU">RU</span>
             <span onclick="setLang('UA')" id="btn-UA">UA</span>
@@ -46,15 +44,11 @@
         <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-16 text-center md:text-left">
-        <h2 id="section-1bed" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left">
-            <span id="title-1bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span>
-        </h2>
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="mb-12 flex items-center"><h2 id="title-1bed" class="text-4xl font-black border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span></div>
         <div id="one-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24"></div>
 
-        <h2 id="section-2bed" class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left">
-            <span id="title-2bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span>
-        </h2>
+        <div class="mb-12 flex items-center"><h2 id="title-2bed" class="text-4xl font-black border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></div>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
     </main>
 
@@ -63,54 +57,96 @@
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
         <div class="relative group">
             <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500">
-            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">1 / 20</div>
+            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">thumb1</div>
         </div>
         <div onclick="nextImg()" class="nav-btn right-10"><i class="fas fa-chevron-right"></i></div>
     </div>
 
+    <div id="book-modal" class="modal">
+        <div class="bg-white rounded-[3rem] p-10 max-w-md w-full relative shadow-2xl text-center text-gray-900">
+            <button onclick="closeModal('book-modal')" class="absolute top-6 right-8 text-4xl text-gray-200 hover:text-red-600">&times;</button>
+            <h2 id="modal-apt-title" class="text-3xl font-black mb-6 uppercase">Apt</h2>
+            <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-2xl bg-gray-50 font-black text-xl text-center mb-4" placeholder="Select dates">
+            <div id="price-calc" class="bg-gray-50 p-6 rounded-2xl hidden border-2 border-dashed border-gray-200 mb-6 text-left">
+                <div class="flex justify-between text-xs mb-1 uppercase font-black text-gray-400"><span id="txt-nights">Nights:</span> <span id="res-nights" class="text-black">0</span></div>
+                <div class="flex justify-between text-xs text-green-600 font-black mb-4 uppercase"><span id="txt-discount">Discount:</span> <span id="res-discount">0%</span></div>
+                <div class="flex justify-between text-3xl font-black pt-4 border-t-2 border-white text-red-600 uppercase"><span id="txt-total">Total:</span> <span id="res-total">$0</span></div>
+            </div>
+            <button onclick="sendWhatsApp()" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black uppercase shadow-lg hover:bg-green-600 flex items-center justify-center tracking-widest transition-transform active:scale-95">
+                <i class="fab fa-whatsapp mr-3 text-2xl"></i> <span id="btn-book-action">Book Now</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="admin-modal" class="modal">
+        <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left text-gray-800">
+            <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
+            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-4">
+                    <select id="admin-apt-select" onchange="refreshAdminCalendar()" class="w-full border-2 border-gray-100 p-4 rounded-xl font-bold"></select>
+                    <input type="text" id="admin-date-picker" class="w-full border-2 border-gray-100 p-4 rounded-xl text-center font-bold" placeholder="Select dates">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs">Lock Dates</button>
+                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs">Open Dates</button>
+                    </div>
+                    <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
+                </div>
+                <div id="admin-status-view" class="bg-gray-50 p-6 rounded-2xl border h-[300px] overflow-y-auto shadow-inner"></div>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-gray-900 text-white py-12 text-center relative">
-        <div class="max-w-4xl mx-auto px-6">
+        <div class="max-w-4xl mx-auto px-6 text-center">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
             <div class="space-y-3 mb-10 text-center">
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
             </div>
+            <div id="admin-link-wrapper" class="mb-6 hidden text-center"><button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">ADMIN SYSTEM</button></div>
         </div>
         <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
     </footer>
 
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4Ieznu--vvPpk7d1POxH40Q2y7uG_qF8",
+            authDomain: "amwaj-booking.firebaseapp.com",
+            databaseURL: "https://amwaj-booking-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "amwaj-booking",
+            storageBucket: "amwaj-booking.appspot.com",
+            messagingSenderId: "155576333296",
+            appId: "1:155576333296:web:21a991bc49e0c508772335"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         const i18n = {
             GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893" },
             RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893" },
             UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893" },
-            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
+            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد вكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893" },
             ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893" },
             IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893" }
         };
 
-        let currentApt = "", currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB';
+        const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
+        let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = "thumb1", currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
-        function smartLoad(img, folder, fileNum) {
-            const path = folder + "/" + fileNum;
+        function smartLoad(img, folder, file) {
+            const path = folder + "/" + file;
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
-                this.onerror = function() {
-                    this.src = "https://via.placeholder.com/400x300?text=Needs+1.jpg";
-                    this.onerror = null;
-                };
+                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Wait+for+thumb1.jpg"; this.onerror = null; };
             };
         }
 
         window.onload = () => {
             renderGrids();
             setLang('GB');
-            const imgs = document.querySelectorAll('.main-preview');
-            imgs.forEach(img => {
-                const aptId = img.getAttribute('data-apt');
-                smartLoad(img, aptId, '1');
-            });
+            database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
         };
 
         function setLang(lang) {
@@ -120,11 +156,17 @@
             document.getElementById('main-subtitle').innerText = t.sub;
             document.getElementById('title-1bed').innerText = t.b1;
             document.getElementById('title-2bed').innerText = t.b2;
+            document.getElementById('txt-nights').innerText = t.nights;
+            document.getElementById('txt-discount').innerText = t.disc;
+            document.getElementById('btn-book-action').innerText = t.book;
+            document.getElementById('date-picker').placeholder = t.placeholder;
+            document.getElementById('txt-total').innerText = t.total;
             document.getElementById('footer-contacts-title').innerText = t.contacts;
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
             document.getElementById(`btn-${lang}`).classList.add('lang-active');
+            document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
         }
 
         function renderGrids() {
@@ -132,39 +174,113 @@
             const two = ["201", "202", "203", "204", "205", "206"];
             const oGrid = document.getElementById('one-bed-grid');
             const tGrid = document.getElementById('two-bed-grid');
+            oGrid.innerHTML = ""; tGrid.innerHTML = "";
             one.forEach(n => oGrid.innerHTML += createCard(n, 90, "1 Bedroom"));
             two.forEach(n => tGrid.innerHTML += createCard(n, 180, "2 Bedrooms"));
         }
 
         function createCard(n, p, t) {
+            const cardId = `card-img-${n}`;
+            setTimeout(() => { smartLoad(document.getElementById(cardId), n, 'thumb1'); }, 1);
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
-                        <img data-apt="${n}" class="main-preview w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
+                        <img id="${cardId}" class="w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
-                    <div class="p-8 text-center">
-                        <h3 class="font-black text-2xl uppercase font-sans tracking-tighter">Apartment #${n}</h3>
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">${t}</p>
-                        <button onclick="window.open('https://wa.me/34673567996')" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
+                    <div class="p-8 text-center text-gray-900">
+                        <h3 class="font-black text-2xl uppercase tracking-tighter">Apartment #${n}</h3>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6 font-sans">${t}</p>
+                        <button onclick="openBook('${n}', ${p})" class="w-full bg-gray-900 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 transition-colors">Book Now</button>
                     </div>
                 </div>`;
         }
 
-        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = 1; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
+        function openBook(no, price) {
+            currentApt = no; currentPrice = price;
+            document.getElementById('modal-apt-title').innerText = `Apartment #${no}`;
+            document.getElementById('book-modal').classList.add('active');
+            flatpickr("#date-picker", {
+                mode: "range", minDate: "today", disable: lockedDatesDB[no] || [], dateFormat: "d.m.Y",
+                onChange: (dates) => {
+                    if (dates.length === 2) {
+                        const nights = Math.ceil((dates[1] - dates[0])/(1000*60*60*24));
+                        let disc = discounts[nights>=14 ? 14 : nights>=7 ? 7 : nights>=5 ? 5 : nights>=4 ? 4 : nights>=3 ? 3 : 0] || 0;
+                        document.getElementById('price-calc').classList.remove('hidden');
+                        document.getElementById('res-nights').innerText = nights;
+                        document.getElementById('res-discount').innerText = (disc*100).toFixed(0)+"%";
+                        document.getElementById('res-total').innerText = "$" + ((nights * price)*(1-disc)).toFixed(0);
+                    }
+                }
+            });
+        }
+
+        function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = "thumb1"; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
             setTimeout(() => {
-                smartLoad(img, currentGalleryApt, currentImgIdx);
-                document.getElementById('gallery-counter').innerText = `${currentImgIdx} / 20`;
+                const path = currentGalleryApt + "/" + currentImgIdx;
+                img.src = path + ".jpg";
+                img.onerror = function() {
+                    this.src = path + ".JPG";
+                    this.onerror = function() { 
+                        // Если thumb1 не найден или фото закончились, возвращаемся к началу
+                        if (currentImgIdx === "thumb1") { currentImgIdx = 1; updateGalleryImg(); }
+                        else if (currentImgIdx > 1) { currentImgIdx = "thumb1"; updateGalleryImg(); }
+                    };
+                };
+                document.getElementById('gallery-counter').innerText = currentImgIdx;
                 img.style.opacity = '1';
             }, 150);
         }
-        function nextImg() { currentImgIdx = currentImgIdx === 20 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
-        function prevImg() { currentImgIdx = currentImgIdx === 1 ? 20 : currentImgIdx - 1; updateGalleryImg(); }
+        function nextImg() { 
+            if (currentImgIdx === "thumb1") currentImgIdx = 1;
+            else if (currentImgIdx >= 20) currentImgIdx = "thumb1";
+            else currentImgIdx++;
+            updateGalleryImg(); 
+        }
+        function prevImg() { 
+            if (currentImgIdx === "thumb1") currentImgIdx = 20;
+            else if (currentImgIdx === 1) currentImgIdx = "thumb1";
+            else currentImgIdx--;
+            updateGalleryImg(); 
+        }
+
+        function checkAdminPassword() {
+            if (prompt("Password:") === "1234") {
+                const sel = document.getElementById('admin-apt-select');
+                if(!sel.children.length) ["201","202","203","204","205","206","601","602","603","605","606","609"].sort().forEach(u => sel.innerHTML += `<option value="${u}">Apt #${u}</option>`);
+                document.getElementById('admin-modal').classList.add('active');
+                refreshAdminCalendar();
+            }
+        }
+        function refreshAdminCalendar() {
+            const apt = document.getElementById('admin-apt-select').value;
+            const already = (lockedDatesDB[apt] || []).sort();
+            document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans text-gray-800">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
+            adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
+        }
+        function changeDatesStatus(lock) {
+            const apt = document.getElementById('admin-apt-select').value;
+            const sel = adminPicker.selectedDates.map(d => d.toISOString().split('T')[0]);
+            if (!sel.length) return;
+            let up = lock ? [...new Set([...(lockedDatesDB[apt] || []), ...sel])] : (lockedDatesDB[apt] || []).filter(d => !sel.includes(d));
+            database.ref('lockedDates/' + apt).set(up).then(() => { refreshAdminCalendar(); adminPicker.clear(); });
+        }
+        function lockForYear() {
+            const apt = document.getElementById('admin-apt-select').value;
+            if(confirm("Lock 1 year?")) {
+                let d = []; let s = new Date();
+                for(let i=0; i<365; i++) { d.push(s.toISOString().split('T')[0]); s.setDate(s.getDate()+1); }
+                database.ref('lockedDates/' + apt).set(d).then(refreshAdminCalendar);
+            }
+        }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function checkAdminPassword() { prompt("Password:"); }
+        function sendWhatsApp() {
+            const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${document.getElementById('date-picker').value}\nTotal: ${document.getElementById('res-total').innerText}`;
+            window.open(`https://wa.me/34673567996?text=${encodeURIComponent(msg)}`);
+        }
     </script>
 </body>
 </html>
