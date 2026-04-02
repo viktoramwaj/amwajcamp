@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.9</title>
+    <title>Amwaj Booking System V.3.1.11</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -39,20 +39,16 @@
     </nav>
 
     <header class="text-center py-16 bg-white border-b">
-        <h1 id="main-title" class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter font-sans">Amwaj Apartments</h1>
+        <h1 id="main-title" class="text-6xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter">Amwaj Apartments</h1>
         <p id="main-subtitle" class="text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
         <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-16">
-        <h2 id="section-1bed" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left">
-            <span id="title-1bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span>
-        </h2>
+        <div class="mb-12 flex items-center"><h2 id="title-1bed" class="text-4xl font-black border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$90/night</span></div>
         <div id="one-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-24"></div>
 
-        <h2 id="section-2bed" class="text-4xl font-black mb-12 border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left">
-            <span id="title-2bed"></span> <span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span>
-        </h2>
+        <div class="mb-12 flex items-center"><h2 id="title-2bed" class="text-4xl font-black border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight text-left"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></div>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
     </main>
 
@@ -69,9 +65,9 @@
     <div id="book-modal" class="modal">
         <div class="bg-white rounded-[3rem] p-10 max-w-md w-full relative shadow-2xl text-center">
             <button onclick="closeModal('book-modal')" class="absolute top-6 right-8 text-4xl text-gray-200 hover:text-red-600">&times;</button>
-            <h2 id="modal-apt-title" class="text-3xl font-black mb-6 uppercase">Apt</h2>
-            <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-2xl bg-gray-50 font-black text-xl text-center mb-4" placeholder="Select dates">
-            <div id="price-calc" class="bg-gray-50 p-6 rounded-2xl hidden border-2 border-dashed border-gray-200 mb-6 text-left">
+            <h2 id="modal-apt-title" class="text-3xl font-black mb-6 uppercase text-gray-900">Apt</h2>
+            <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-2xl bg-gray-50 font-black text-xl text-center mb-4 text-gray-800" placeholder="Select dates">
+            <div id="price-calc" class="bg-gray-50 p-6 rounded-2xl hidden border-2 border-dashed border-gray-200 mb-6 text-left text-gray-800">
                 <div class="flex justify-between text-xs mb-1 uppercase font-black text-gray-400"><span id="txt-nights">Nights:</span> <span id="res-nights" class="text-black">0</span></div>
                 <div class="flex justify-between text-xs text-green-600 font-black mb-4 uppercase"><span id="txt-discount">Discount:</span> <span id="res-discount">0%</span></div>
                 <div class="flex justify-between text-3xl font-black pt-4 border-t-2 border-white text-red-600 uppercase"><span id="txt-total">Total:</span> <span id="res-total">$0</span></div>
@@ -85,14 +81,14 @@
     <div id="admin-modal" class="modal">
         <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left text-gray-800">
             <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
-            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic font-sans">ADMIN PANEL</h2>
+            <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="space-y-4">
                     <select id="admin-apt-select" onchange="refreshAdminCalendar()" class="w-full border-2 border-gray-100 p-4 rounded-xl font-bold"></select>
                     <input type="text" id="admin-date-picker" class="w-full border-2 border-gray-100 p-4 rounded-xl text-center font-bold" placeholder="Select dates">
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Lock Dates</button>
-                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs tracking-tighter">Open Dates</button>
+                        <button onclick="changeDatesStatus(true)" class="bg-black text-white py-4 rounded-xl font-bold uppercase text-xs">Lock Dates</button>
+                        <button onclick="changeDatesStatus(false)" class="bg-green-500 text-white py-4 rounded-xl font-bold uppercase text-xs">Open Dates</button>
                     </div>
                     <button onclick="lockForYear()" class="w-full border-2 border-black py-3 rounded-xl font-bold uppercase text-[10px]">Lock 1 year</button>
                 </div>
@@ -103,7 +99,7 @@
 
     <footer class="bg-gray-900 text-white py-12 text-center relative">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600 font-sans">Contacts</h3>
+            <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
             <div class="space-y-3 mb-10 text-center">
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
@@ -138,27 +134,12 @@
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
         let currentApt = "", currentPrice = 0, currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
-        // НОВАЯ ЛОГИКА ПРЕВЬЮ: ИЩЕМ СТРОГО ФАЙЛ "pre.jpg"
-        function loadPreview(img, folder) {
-            const path = folder + "/pre";
+        function smartLoad(img, folder, fileNum) {
+            const path = folder + "/" + fileNum;
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
-                this.onerror = function() { 
-                    this.src = "https://via.placeholder.com/400x300?text=Rename+photo+to+pre.jpg"; 
-                    this.onerror = null;
-                };
-            };
-        }
-
-        function smartGalleryLoad(img, folder, idx) {
-            const path = folder + "/" + idx + ".jpg";
-            img.src = path;
-            img.onerror = function() {
-                this.src = folder + "/" + idx + ".JPG";
-                this.onerror = function() {
-                    if (idx > 1) { currentImgIdx = 1; smartGalleryLoad(img, folder, 1); }
-                };
+                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Check+thumb.jpg"; this.onerror = null; };
             };
         }
 
@@ -166,7 +147,6 @@
             renderGrids();
             setLang('GB');
             database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
-            document.querySelectorAll('.main-preview').forEach(img => loadPreview(img, img.getAttribute('data-apt')));
         };
 
         function setLang(lang) {
@@ -200,10 +180,13 @@
         }
 
         function createCard(n, p, t) {
+            // ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ПРЕВЬЮ ПРИ СОЗДАНИИ
+            const cardId = `card-img-${n}`;
+            setTimeout(() => { smartLoad(document.getElementById(cardId), n, 'thumb'); }, 10);
             return `
                 <div class="apt-card shadow-sm">
                     <div class="apt-img-container">
-                        <img data-apt="${n}" class="main-preview w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
+                        <img id="${cardId}" class="w-full h-full object-cover cursor-zoom-in" onclick="openGallery('${n}')">
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-4 py-1 rounded-full font-black text-red-600 shadow-lg italic">$${p}</div>
                     </div>
                     <div class="p-8 text-center text-gray-900">
@@ -237,7 +220,16 @@
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
-            setTimeout(() => { smartGalleryLoad(img, currentGalleryApt, currentImgIdx); document.getElementById('gallery-counter').innerText = currentImgIdx; img.style.opacity = '1'; }, 150);
+            setTimeout(() => {
+                const path = currentGalleryApt + "/" + currentImgIdx;
+                img.src = path + ".jpg";
+                img.onerror = function() {
+                    this.src = path + ".JPG";
+                    this.onerror = function() { if (currentImgIdx > 1) { currentImgIdx = 1; updateGalleryImg(); } };
+                };
+                document.getElementById('gallery-counter').innerText = currentImgIdx;
+                img.style.opacity = '1';
+            }, 150);
         }
         function nextImg() { currentImgIdx = currentImgIdx >= 20 ? 1 : currentImgIdx + 1; updateGalleryImg(); }
         function prevImg() { currentImgIdx = currentImgIdx <= 1 ? 20 : currentImgIdx - 1; updateGalleryImg(); }
