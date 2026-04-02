@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.3.1.5</title>
+    <title>Amwaj Booking System V.3.1.6</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -93,11 +93,8 @@
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
             </div>
-            
             <div id="admin-link-wrapper" class="mb-6 hidden text-center">
-                <button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">
-                    ADMIN SYSTEM
-                </button>
+                <button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">ADMIN SYSTEM</button>
             </div>
         </div>
         <div onclick="checkAdminPassword()" class="w-full h-1 bg-white cursor-pointer opacity-10 hover:opacity-100 transition-opacity absolute bottom-0 left-0"></div>
@@ -127,12 +124,19 @@
 
         let currentApt = "", currentGalleryApt = "", currentImgIdx = 1, currentLang = 'GB', adminPicker, lockedDatesDB = {};
 
+        // УСИЛЕННЫЙ ЗАГРУЗЧИК ФОТО (jpg, JPG, jpeg)
         function smartLoad(img, folder, fileNum) {
             const path = folder + "/" + fileNum;
             img.src = path + ".jpg";
             img.onerror = function() {
-                this.src = path + ".JPG";
-                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Wait+for+1.jpg"; this.onerror = null; };
+                this.onerror = function() {
+                    this.onerror = function() {
+                        this.src = "https://via.placeholder.com/400x300?text=Wait+for+1.jpg";
+                        this.onerror = null;
+                    };
+                    this.src = path + ".jpeg"; // ТРЕТЬЯ ПОПЫТКА (jpeg)
+                };
+                this.src = path + ".JPG"; // ВТОРАЯ ПОПЫТКА (JPG)
             };
         }
 
@@ -140,9 +144,13 @@
             renderGrids();
             setLang('GB');
             database.ref('lockedDates').on('value', (s) => { lockedDatesDB = s.val() || {}; });
+            refreshPreviews();
+        };
+
+        function refreshPreviews() {
             const imgs = document.querySelectorAll('.main-preview');
             imgs.forEach(img => smartLoad(img, img.getAttribute('data-apt'), '1'));
-        };
+        }
 
         function setLang(lang) {
             currentLang = lang; const t = i18n[lang];
@@ -164,6 +172,7 @@
             const two = ["201", "202", "203", "204", "205", "206"];
             const oGrid = document.getElementById('one-bed-grid');
             const tGrid = document.getElementById('two-bed-grid');
+            oGrid.innerHTML = ""; tGrid.innerHTML = "";
             one.forEach(n => oGrid.innerHTML += createCard(n, 90, "1 Bedroom"));
             two.forEach(n => tGrid.innerHTML += createCard(n, 180, "2 Bedrooms"));
         }
