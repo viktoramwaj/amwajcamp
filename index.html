@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.5.0.1</title>
+    <title>Amwaj Booking System V.5.0.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -21,22 +21,18 @@
         .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; z-index: 10; transition: 0.3s; }
         .nav-btn:hover { background: rgba(255,255,255,0.3); }
         .lang-active { color: #ef4444 !important; text-decoration: underline !important; font-weight: 900 !important; }
-        .info-card { background: white; border-radius: 2rem; padding: 2rem; border: 1px solid #f3f4f6; transition: 0.3s; }
-        .info-card:hover { border-color: #ef4444; }
         [dir="rtl"] { text-align: right; }
-        [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
-
-        /* Стили для 6 блоков */
+        
         .v-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; }
         .v-info-card { background: white; border-radius: 35px; padding: 30px; border-bottom: 8px solid; box-shadow: 0 5px 15px rgba(0,0,0,0.03); text-align: left; }
         .v-info-card h4 { margin: 0 0 10px; font-size: 14px; font-weight: 800; text-transform: uppercase; }
         .v-info-card p { font-size: 14px; line-height: 1.5; color: #444; margin: 0; }
-        .brd-red { border-color: #e63946; h4 { color: #e63946; } }
-        .brd-blue { border-color: #3a86ff; h4 { color: #3a86ff; } }
-        .brd-green { border-color: #38b000; h4 { color: #38b000; } }
-        .brd-orange { border-color: #ff9f1c; h4 { color: #ff9f1c; } }
-        .brd-purple { border-color: #8338ec; h4 { color: #8338ec; } }
-        .brd-cyan { border-color: #00b4d8; h4 { color: #00b4d8; } }
+        .brd-red { border-color: #e63946; } .brd-red h4 { color: #e63946; }
+        .brd-blue { border-color: #3a86ff; } .brd-blue h4 { color: #3a86ff; }
+        .brd-green { border-color: #38b000; } .brd-green h4 { color: #38b000; }
+        .brd-orange { border-color: #ff9f1c; } .brd-orange h4 { color: #ff9f1c; }
+        .brd-purple { border-color: #8338ec; } .brd-purple h4 { color: #8338ec; }
+        .brd-cyan { border-color: #00b4d8; } .brd-cyan h4 { color: #00b4d8; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans text-center md:text-left">
@@ -66,22 +62,12 @@
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
 
         <div class="v-info-grid mb-28">
-            <div class="v-info-card brd-red"><h4>ОБ АПАРТАМЕНТАХ</h4><p>Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.</p></div>
-            <div class="v-info-card brd-blue"><h4>ОТДЫХ И ПЛЯЖ</h4><p>Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.</p></div>
-            <div class="v-info-card brd-green"><h4>ТРАНСПОРТ</h4><p>Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.</p></div>
-            <div class="v-info-card brd-orange"><h4>МАГАЗИНЫ И ЕДА</h4><p>Супермаркеты Metro и Ragab Sons в 5 минутах ходьбы. McDonald's и KFC через дорогу.</p></div>
-            <div class="v-info-card brd-purple"><h4>СЕРВИС 24/7</h4><p>Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.</p></div>
-            <div class="v-info-card brd-cyan"><h4>РАЗВЛЕЧЕНИЯ</h4><p>В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay.</p></div>
-        </div>
-
-        <h2 id="title-info-section" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">Useful Information</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
-            <div class="info-card"><i class="fas fa-utensils text-red-600 text-3xl mb-4"></i><h3 id="info-t1" class="text-xl font-black uppercase mb-2"></h3><p id="info-d1" class="text-gray-500 text-sm italic"></p></div>
-            <div class="info-card"><i class="fas fa-car text-red-600 text-3xl mb-4"></i><h3 id="info-t2" class="text-xl font-black uppercase mb-2"></h3><p id="info-d2" class="text-gray-500 text-sm italic"></p></div>
-            <div class="info-card"><i class="fas fa-umbrella-beach text-red-600 text-3xl mb-4"></i><h3 id="info-t3" class="text-xl font-black uppercase mb-2"></h3><p id="info-d3" class="text-gray-500 text-sm italic"></p></div>
-            <div class="info-card"><i class="fas fa-shopping-cart text-red-600 text-3xl mb-4"></i><h3 id="info-t4" class="text-xl font-black uppercase mb-2"></h3><p id="info-d4" class="text-gray-500 text-sm italic"></p></div>
-            <div class="info-card"><i class="fas fa-pills text-red-600 text-3xl mb-4"></i><h3 id="info-t5" class="text-xl font-black uppercase mb-2"></h3><p id="info-d5" class="text-gray-500 text-sm italic"></p></div>
-            <div class="info-card"><i class="fas fa-wifi text-red-600 text-3xl mb-4"></i><h3 id="info-t6" class="text-xl font-black uppercase mb-2"></h3><p id="info-d6" class="text-gray-500 text-sm italic"></p></div>
+            <div class="v-info-card brd-red"><h4 id="h-inf1"></h4><p id="p-inf1"></p></div>
+            <div class="v-info-card brd-blue"><h4 id="h-inf2"></h4><p id="p-inf2"></p></div>
+            <div class="v-info-card brd-green"><h4 id="h-inf3"></h4><p id="p-inf3"></p></div>
+            <div class="v-info-card brd-orange"><h4 id="h-inf4"></h4><p id="p-inf4"></p></div>
+            <div class="v-info-card brd-purple"><h4 id="h-inf5"></h4><p id="p-inf5"></p></div>
+            <div class="v-info-card brd-cyan"><h4 id="h-inf6"></h4><p id="p-inf6"></p></div>
         </div>
     </main>
 
@@ -156,17 +142,53 @@
 
         const i18n = {
             GB: { title: "Amwaj Apartments", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893", 
-                info: "Useful Information", it1: "Food & Drinks", id1: "Fish Market, Hard Rock Cafe, Farsha Lounge.", it2: "Transport", id2: "InDrive, Uber, local taxis.", it3: "Beaches", id3: "Amwaj Beach, El Fanar, Terrazzina.", it4: "Shopping", id4: "Metro Market, Carrefour, Old Market.", it5: "Pharmacy", id5: "El Ezaby, ask local price.", it6: "SIM Cards", id6: "Vodafone, Etisalat, WE." },
+                inf1t: "ABOUT APARTMENTS", inf1p: "Kitchen, microwave, fridge, full set of dishes. 24/7 security and comfort.",
+                inf2t: "RECREATION & BEACH", inf2p: "Free Aqua Park and private beach (sunbeds included). Complex pools available.",
+                inf3t: "TRANSPORT", inf3p: "Taxis and local minibuses right at the entrance. Help with airport transfer.",
+                inf4t: "SHOPS & FOOD", inf4p: "Metro and Ragab Sons supermarkets 5 mins walk. McDonald's and KFC across the road.",
+                inf5t: "SERVICE 24/7", inf5p: "Multilingual support for all questions. Help with excursions and daily needs.",
+                inf6t: "ENTERTAINMENT", inf6p: "Hard Rock Cafe, night clubs and Nabq Bay shopping rows within walking distance."
+            },
             RU: { title: "Апартаменты Amwaj", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
-                info: "Полезная информация", it1: "Еда и напитки", id1: "Рыбный рынок, Hard Rock Cafe, Farsha Lounge.", it2: "Транспорт", id2: "InDrive, Uber, синие такси (торгуйтесь).", it3: "Пляжи", id3: "Пляж Amwaj, El Fanar, Terrazzina.", it4: "Магазины", id4: "Metro Market, Carrefour, Старый город.", it5: "Аптеки", id5: "El Ezaby, спрашивайте цену для местных.", it6: "SIM-карты", id6: "Vodafone, Etisalat, WE." },
+                inf1t: "ОБ АПАРТАМЕНТАХ", inf1p: "Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.",
+                inf2t: "ОТДЫХ И ПЛЯЖ", inf2p: "Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.",
+                inf3t: "ТРАНСПОРТ", inf3p: "Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.",
+                inf4t: "МАГАЗИНЫ И ЕДА", inf4p: "Супермаркеты Metro и Ragab Sons в 5 минутах ходьбы. McDonald's и KFC через дорогу.",
+                inf5t: "СЕРВИС 24/7", inf5p: "Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.",
+                inf6t: "РАЗВЛЕЧЕНИЯ", inf6p: "В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay."
+            },
             UA: { title: "Апартаменти Amwaj", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
-                info: "Корисна інформація", it1: "Їжа та напої", id1: "Рибний ринок, Hard Rock Cafe, Farsha Lounge.", it2: "Транспорт", id2: "InDrive, Uber, сині таксі.", it3: "Пляжі", id3: "Пляж Amwaj, El Fanar, Terrazzina.", it4: "Магазини", id4: "Metro Market, Carrefour, Старе місто.", it5: "Аптеки", id5: "El Ezaby, ціни для місцевих.", it6: "SIM-картки", id6: "Vodafone, Etisalat, WE." },
-            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893",
-                info: "معلومات مفيدة", it1: "الأكل والشرب", id1: "سوق السمك، هارد روك كافيه، فرشة لونج.", it2: "النقل", id2: "InDrive, Uber, التاكسي الأزرق.", it3: "الشواطئ", id3: "شاطئ أمواج، الفنار، تيرازينا.", it4: "التسوق", id4: "مترو ماركت، كارفور، السوق القديم.", it5: "الصيدليات", id5: "العزبي، اسأل عن أسعار المحليين.", it6: "بطاقات SIM", id6: "فودافون، اتصالات، وي." },
+                inf1t: "ПРО АПАРТАМЕНТИ", inf1p: "Кухня, СВЧ, холодильник, повний набір посуду. Цілодобова охорона та комфорт.",
+                inf2t: "ВІДПОЧИНОК ТА ПЛЯЖ", inf2p: "Безкоштовний Аквапарк та приватний пляж (шезлонги включені). Басейни комплексу в доступі.",
+                inf3t: "ТРАНСПОРТ", inf3p: "Таксі та міські маршрутки прямо біля входу. Допомога з трансфером в аеропорт.",
+                inf4t: "МАГАЗИНИ ТА ЇЖА", inf4p: "Супермаркети Metro та Ragab Sons у 5 хвилинах ходьби. McDonald's та KFC через дорогу.",
+                inf5t: "СЕРВИС 24/7", inf5p: "Підтримка з усіх питань. Допомога в організації екскурсій та побуту.",
+                inf6t: "РОЗВАГИ", inf6p: "У пішій доступності Hard Rock Cafe, нічні клуби та торгові ряди Nabq Bay."
+            },
+            EG: { title: "شقق أمواج", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893",
+                inf1t: "عن الشقق", inf1p: "مطبخ، ميكروويف، ثلاجة، طقم أطباق كامل. أمن وراحة على مدار الساعة.",
+                inf2t: "الترفيه والشاطئ", inf2p: "أكوا بارك مجانية وشاطئ خاص (الكراسي مشمولة). حمامات سباحة המجمع متاحة.",
+                inf3t: "النقل", inf3p: "تاكسي وميكروباصات عند المدخل مباشرة. مساعدة في توصيل المطار.",
+                inf4t: "المتاجر والطعام", inf4p: "سوبر ماركت مترو ورجب أولاد على بعد 5 دقائق. ماكدونالدز وكنتاكي عبر الطريق.",
+                inf5t: "خدمة 24/7", inf5p: "دعم لجميع الأسئلة. المساعدة في تنظيم الرحلات والاحتياجات اليومية.",
+                inf6t: "الترفيه", inf6p: "هارد روك كافيه والنوادي الليلية وصفوف التسوق في خليج نبق على بعد مسافة قصيرة."
+            },
             ES: { title: "Apartamentos Amwaj", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893",
-                info: "Información útil", it1: "Comida y Bebida", id1: "Mercado de pescado, Hard Rock Cafe, Farsha Lounge.", it2: "Transporte", id2: "InDrive, Uber, taxis locales.", it3: "Playas", id3: "Playa Amwaj, El Fanar, Terrazzina.", it4: "Compras", id4: "Metro Market, Carrefour, Old Market.", it5: "Farmacias", id5: "El Ezaby, pida precio local.", it6: "Tarjetas SIM", id6: "Vodafone, Etisalat, WE." },
+                inf1t: "SOBRE APARTAMENTOS", inf1p: "Cocina, microondas, nevera, vajilla completa. Seguridad 24/7 y confort.",
+                inf2t: "RECREO Y PLAYA", inf2p: "Parque acuático gratuito y playa privada (tumbonas incluidas). Piscinas del complejo disponibles.",
+                inf3t: "TRANSPORTE", inf3p: "Taxis y minibuses locales justo en la entrada. Ayuda con el traslado al aeropuerto.",
+                inf4t: "TIENDAS Y COMIDA", inf4p: "Supermercados Metro y Ragab Sons a 5 min. McDonald's y KFC al otro lado de la calle.",
+                inf5t: "SERVICIO 24/7", inf5p: "Soporte multilingüe para todas las dudas. Ayuda con excursiones y vida diaria.",
+                inf6t: "DIVERSIÓN", inf6p: "Hard Rock Cafe, discotecas y tiendas de Nabq Bay a poca distancia a pie."
+            },
             IL: { title: "דירות אמואז'", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893",
-                info: "מידע שימושי", it1: "אוכל ושתייה", id1: "שוק הדגים, Hard Rock Cafe, Farsha Lounge.", it2: "תחבורה", id2: "InDrive, Uber, מוניות כחולות.", it3: "חופים", id3: "חוף אמואז', אל פנאר, טרזינה.", it4: "קניות", id4: "מטרו מרקט, קארפור, העיר העתיקה.", it5: "בתי מרקחת", id5: "אל עזאבי, בקשו מחיר מקומי.", it6: "כרטיסי SIM", id6: "Vodafone, Etisalat, WE." }
+                inf1t: "על הדירות", inf1p: "מטבח, מיקרוגל, מקרר, סט כלים מלא. אבטחה ונוחות 24/7.",
+                inf2t: "נופש וחוף", inf2p: "פארק מים חינם וחוף פרטי (מיטות שיזוף כלולות). בריכות הקומפלקס זמינות.",
+                inf3t: "תחבורה", inf3p: "מוניות ומיניבוסים מקומיים ממש בכניסה. עזרה בהסעות לשדה התעופה.",
+                inf4t: "חנויות ואוכל", inf4p: "סופרמרקטים מטרו ורג'ב סאנס במרחק 5 דקות הליכה. מקדונלד'ס ו-KFC מעבר לכביש.",
+                inf5t: "שירות 24/7", inf5p: "תמיכה בכל השאלות. עזרה בארגון טיולים וצרכי יום-יום.",
+                inf6t: "בידור", inf6p: "Hard Rock Cafe, מועדוני לילה וחנויות מפרץ נאבק במרחק הליכה."
+            }
         };
 
         const discounts = { 3: 0.05, 4: 0.07, 5: 0.10, 7: 0.20, 14: 0.35 };
@@ -177,7 +199,7 @@
             img.src = path + ".jpg";
             img.onerror = function() {
                 this.src = path + ".JPG";
-                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=thumb1.jpg+Missing"; this.onerror = null; };
+                this.onerror = function() { this.src = "https://via.placeholder.com/400x300?text=Image+Missing"; this.onerror = null; };
             };
         }
 
@@ -202,11 +224,12 @@
             document.getElementById('footer-contacts-title').innerText = t.contacts;
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
-            document.getElementById('title-info-section').innerText = t.info;
+            
             for(let i=1; i<=6; i++) {
-                document.getElementById('info-t'+i).innerText = t['it'+i];
-                document.getElementById('info-d'+i).innerText = t['id'+i];
+                document.getElementById('h-inf'+i).innerText = t['inf'+i+'t'];
+                document.getElementById('p-inf'+i).innerText = t['inf'+i+'p'];
             }
+
             document.querySelectorAll('nav span').forEach(el => el.classList.remove('lang-active'));
             document.getElementById(`btn-${lang}`).classList.add('lang-active');
             document.getElementById('admin-link-wrapper').classList.toggle('hidden', lang !== 'RU');
@@ -252,6 +275,7 @@
         }
 
         function openGallery(apt) { currentGalleryApt = apt; currentImgIdx = "thumb1"; updateGalleryImg(); document.getElementById('gallery-modal').classList.add('active'); }
+        
         function updateGalleryImg() { 
             const img = document.getElementById('gallery-img-content');
             img.style.opacity = '0';
@@ -262,19 +286,21 @@
                     this.src = path + ".JPG";
                     this.onerror = function() { 
                         if (currentImgIdx === "thumb1") { currentImgIdx = 1; updateGalleryImg(); }
-                        else if (currentImgIdx > 1) { currentImgIdx = "thumb1"; updateGalleryImg(); }
+                        else { this.src = "https://via.placeholder.com/800x600?text=No+More+Images"; }
                     };
                 };
                 document.getElementById('gallery-counter').innerText = currentImgIdx;
                 img.style.opacity = '1';
             }, 150);
         }
+
         function nextImg() { 
             if (currentImgIdx === "thumb1") currentImgIdx = 1;
             else if (currentImgIdx >= 20) currentImgIdx = "thumb1";
             else currentImgIdx++;
             updateGalleryImg(); 
         }
+
         function prevImg() { 
             if (currentImgIdx === "thumb1") currentImgIdx = 20;
             else if (currentImgIdx === 1) currentImgIdx = "thumb1";
@@ -290,12 +316,14 @@
                 refreshAdminCalendar();
             }
         }
+
         function refreshAdminCalendar() {
             const apt = document.getElementById('admin-apt-select').value;
             const already = (lockedDatesDB[apt] || []).sort();
             document.getElementById('admin-status-view').innerHTML = already.length ? `<div class="grid grid-cols-2 gap-2 uppercase text-[9px] font-sans text-gray-800">${already.map(d => `<div class="bg-white p-2 border rounded-xl text-center font-bold text-red-600 border-red-50">• ${d}</div>`).join('')}</div>` : "<p class='text-center text-gray-300 py-20 uppercase text-xs font-black'>Calendar Clean</p>";
             adminPicker = flatpickr("#admin-date-picker", { mode: "multiple", dateFormat: "Y-m-d", onDayCreate: (d, s, fp, el) => { if (already.includes(el.dateObj.toISOString().split('T')[0])) el.classList.add("already-locked"); } });
         }
+
         function changeDatesStatus(lock) {
             const apt = document.getElementById('admin-apt-select').value;
             const sel = adminPicker.selectedDates.map(d => d.toISOString().split('T')[0]);
@@ -303,15 +331,9 @@
             let up = lock ? [...new Set([...(lockedDatesDB[apt] || []), ...sel])] : (lockedDatesDB[apt] || []).filter(d => !sel.includes(d));
             database.ref('lockedDates/' + apt).set(up).then(() => { refreshAdminCalendar(); adminPicker.clear(); });
         }
-        function lockForYear() {
-            const apt = document.getElementById('admin-apt-select').value;
-            if(confirm("Lock 1 year?")) {
-                let d = []; let s = new Date();
-                for(let i=0; i<365; i++) { d.push(s.toISOString().split('T')[0]); s.setDate(s.getDate()+1); }
-                database.ref('lockedDates/' + apt).set(d).then(refreshAdminCalendar);
-            }
-        }
+
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
         function sendWhatsApp() {
             const msg = `Booking Request:\nApt: #${currentApt}\nDates: ${document.getElementById('date-picker').value}\nTotal: ${document.getElementById('res-total').innerText}`;
             window.open(`https://wa.me/34673567996?text=${encodeURIComponent(msg)}`);
