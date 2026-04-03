@@ -1,76 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMWAJ LUXURY</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 30px; }
-        .logo { font-weight: 900; font-size: 24px; letter-spacing: 2px; }
-        .lang-panel { font-size: 12px; font-weight: bold; }
-        .lang-panel span { margin-left: 10px; cursor: pointer; color: #555; }
-        .lang-active { color: #d32f2f !important; }
-
-        .apt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
-        .apt-card { background: white; border-radius: 35px; padding: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .apt-card img { width: 100%; border-radius: 25px; margin-bottom: 15px; height: 220px; object-fit: cover; }
-        .apt-card h2 { font-size: 22px; margin: 10px 0 5px; }
-        .apt-card p { font-size: 12px; color: #888; letter-spacing: 1px; margin-bottom: 20px; }
-        .btn-book { background: #222; color: white; border: none; padding: 12px 0; width: 80%; border-radius: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 50px auto 0; }
-        .info-card { background: white; border-radius: 35px; padding: 30px; border-bottom: 8px solid; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .info-card h4 { margin: 0 0 10px; font-size: 14px; font-weight: 800; }
-        .info-card p { font-size: 14px; line-height: 1.5; color: #444; margin: 0; }
-
-        .brd-red { border-color: #e63946; color: #e63946; }
-        .brd-blue { border-color: #3a86ff; color: #3a86ff; }
-        .brd-green { border-color: #38b000; color: #38b000; }
-        .brd-orange { border-color: #ff9f1c; color: #ff9f1c; }
-        .brd-purple { border-color: #8338ec; color: #8338ec; }
-        .brd-cyan { border-color: #00b4d8; color: #00b4d8; }
-    </style>
-</head>
-<body>
-
-<div class="header">
-    <div class="logo">AMWAJ LUXURY</div>
-    <div class="lang-panel">
-        <span class="lang-active">RU</span> <span>GB</span> <span>EG</span> <span>ES</span>
-    </div>
-</div>
-
-<div class="apt-grid" id="apt-container">
-    </div>
-
-<div class="info-grid">
-    <div class="info-card brd-red"><h4>ОБ АПАРТАМЕНТАХ</h4><p>Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.</p></div>
-    <div class="info-card brd-blue"><h4>ОТДЫХ И ПЛЯЖ</h4><p>Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.</p></div>
-    <div class="info-card brd-green"><h4>ТРАНСПОРТ</h4><p>Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.</p></div>
-    <div class="info-card brd-orange"><h4>МАГАЗИНЫ И ЕДА</h4><p>Супермаркеты Metro и Ragab Sons в 5 минутах ходьбы. McDonald's и KFC через дорогу.</p></div>
-    <div class="info-card brd-purple"><h4>СЕРВИС 24/7</h4><p>Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.</p></div>
-    <div class="info-card brd-cyan"><h4>РАЗВЛЕЧЕНИЯ</h4><p>В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay.</p></div>
-</div>
-
-<script>
-    const apartments = [
-        { id: 201 }, { id: 202 }, { id: 203 }, { id: 204 }, { id: 205 }, { id: 206 },
-        { id: 207 }, { id: 208 }, { id: 209 }, { id: 210 }, { id: 211 }, { id: 212 }
-    ];
-
-    const container = document.getElementById('apt-container');
-    apartments.forEach(apt => {
-        container.innerHTML += `
-            <div class="apt-card">
-                <img src="${apt.id}/main.jpg" alt="Apt ${apt.id}" onerror="this.src='https://via.placeholder.com/400x300?text=PHOTO+APT+${apt.id}'">
-                <h2>APARTMENT #${apt.id}</h2>
-                <p>2 BEDROOMS | AMWAJ</p>
-                <button class="btn-book">BOOK NOW</button>
+<h2 id="title-info-section" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">Полезная информация</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
+            <div class="info-card">
+                <i class="fas fa-utensils text-red-600 text-3xl mb-4"></i>
+                <h3 class="text-xl font-black uppercase mb-2">Рестораны и Еда</h3>
+                <p class="text-gray-500 text-sm italic">[Здесь должен быть твой текст]</p>
             </div>
-        `;
-    });
-</script>
-
-</body>
-</html>
+            <div class="info-card">
+                <i class="fas fa-car text-red-600 text-3xl mb-4"></i>
+                <h3 class="text-xl font-black uppercase mb-2">Транспорт</h3>
+                <p class="text-gray-500 text-sm italic">[Здесь должен быть твой текст]</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-pills text-red-600 text-3xl mb-4"></i>
+                <h3 class="text-xl font-black uppercase mb-2">Медицина и Аптеки</h3>
+                <p class="text-gray-500 text-sm italic">[Здесь должен быть твой текст]</p>
+            </div>
+        </div>
