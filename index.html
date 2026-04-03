@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.5.0.3</title>
+    <title>Amwaj Booking System V.5.0.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -48,10 +48,18 @@
         </div>
     </nav>
 
-    <header class="text-center py-16 bg-white border-b px-4">
-        <h1 id="main-title" class="text-4xl md:text-6xl font-black mb-4 uppercase text-gray-900 tracking-tighter leading-tight">Welcome to Amwaj hotel Apartments<br>Sharm El Sheikh, Egypt</h1>
-        <p id="main-subtitle" class="text-xl md:text-2xl text-gray-400 italic">Directly from the owner Viktor. Best prices 2026.</p>
-        <div class="w-28 h-2 bg-red-600 mx-auto mt-10 rounded-full"></div>
+    <header class="text-center pt-24 pb-16 bg-white">
+        <h1 id="main-title" class="text-5xl md:text-8xl font-black mb-4 uppercase text-gray-900 tracking-tighter leading-tight">Welcome to Amwaj hotel Apartments</h1>
+        <p id="main-subtitle" class="text-xl md:text-3xl text-gray-500 font-medium tracking-wide">Sharm El Sheikh, Egypt</p>
+        
+        <div class="mt-10">
+            <a href="https://maps.google.com/?q=Amwaj+Oyoun+Resort+&+Casino" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-gray-100 hover:bg-gray-200 rounded-full text-base font-black uppercase tracking-widest transition-all active:scale-95 shadow-sm">
+                <i class="fas fa-map-marker-alt text-red-600 text-xl"></i>
+                <span id="txt-map">Show on Map</span>
+            </a>
+        </div>
+
+        <div class="w-28 h-2 bg-red-600 mx-auto mt-12 rounded-full"></div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-16">
@@ -72,7 +80,7 @@
     </main>
 
     <div id="gallery-modal" class="modal">
-        <button onclick="closeModal('gallery-modal')" class="absolute top-8 right-10 text-6xl text-white hover:text-red-500">&times;</button>
+        <button onclick="closeModal('gallery-modal')" class="absolute top-8 right-10 text-6xl text-white hover:text-red-500">×</button>
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
         <div class="relative group">
             <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500">
@@ -83,7 +91,7 @@
 
     <div id="book-modal" class="modal">
         <div class="bg-white rounded-[3rem] p-10 max-w-md w-full relative shadow-2xl text-center text-gray-900">
-            <button onclick="closeModal('book-modal')" class="absolute top-6 right-8 text-4xl text-gray-200 hover:text-red-600">&times;</button>
+            <button onclick="closeModal('book-modal')" class="absolute top-6 right-8 text-4xl text-gray-200 hover:text-red-600">×</button>
             <h2 id="modal-apt-title" class="text-3xl font-black mb-6 uppercase">Apt</h2>
             <input type="text" id="date-picker" class="w-full border-4 border-gray-50 p-5 rounded-2xl bg-gray-50 font-black text-xl text-center mb-4" placeholder="Select dates">
             <div id="price-calc" class="bg-gray-50 p-6 rounded-2xl hidden border-2 border-dashed border-gray-200 mb-6 text-left">
@@ -99,7 +107,7 @@
 
     <div id="admin-modal" class="modal">
         <div class="bg-white rounded-[3rem] p-10 max-w-4xl w-full relative shadow-2xl text-left text-gray-800">
-            <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">&times;</button>
+            <button onclick="closeModal('admin-modal')" class="absolute top-6 right-8 text-3xl">×</button>
             <h2 class="text-4xl font-black mb-8 uppercase text-red-600 italic">ADMIN PANEL</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="space-y-4">
@@ -115,18 +123,12 @@
         </div>
     </div>
 
-    <footer class="bg-gray-900 text-white py-12 text-center relative px-6">
-        <div class="max-w-4xl mx-auto">
+    <footer class="bg-gray-900 text-white py-12 text-center relative">
+        <div class="max-w-4xl mx-auto px-6">
             <h3 id="footer-contacts-title" class="text-xl font-black uppercase mb-6 tracking-widest text-red-600">Contacts</h3>
-            <div class="space-y-3 mb-8 text-center">
+            <div class="space-y-3 mb-10 text-center">
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-viktor" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
                 <div class="p-4 border border-gray-800 rounded-2xl bg-gray-800/20"><p id="contact-sherif" class="text-base md:text-lg font-bold italic leading-tight"></p></div>
-            </div>
-            <div class="mb-10">
-                <a href="https://maps.app.goo.gl/oY7Z7C6iS7J1A2fE7" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-gray-700 px-6 py-3 rounded-full transition-all group">
-                    <i class="fas fa-map-marker-alt text-red-600"></i>
-                    <span id="txt-map" class="font-bold uppercase text-sm tracking-widest">Open on Google Maps</span>
-                </a>
             </div>
             <div id="admin-link-wrapper" class="mb-6 hidden text-center"><button onclick="checkAdminPassword()" class="text-[#111827] text-[10px] font-black uppercase tracking-[0.5em] cursor-default">ADMIN SYSTEM</button></div>
         </div>
@@ -147,7 +149,7 @@
         const database = firebase.database();
 
         const i18n = {
-            GB: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "Directly from owner Viktor. 2026.", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893", map: "Open on Google Maps",
+            GB: { title: "Welcome to Amwaj hotel Apartments", sub: "Sharm El Sheikh, Egypt", map: "Show on Map", b1: "one bedroom apartments", b2: "two bedroom apartments", nights: "Nights:", disc: "Discount:", book: "Book Now", placeholder: "Select dates", total: "Total:", contacts: "Contacts", viktor: "Mr. Viktor: WhatsApp +34 673 567 996", sherif: "Mr. Sherif: WhatsApp +20 109 617 6893", 
                 inf1t: "ABOUT APARTMENTS", inf1p: "Kitchen, microwave, fridge, full set of dishes. 24/7 security and comfort.",
                 inf2t: "RECREATION & BEACH", inf2p: "Free Aqua Park and private beach (sunbeds included). Complex pools available.",
                 inf3t: "TRANSPORT", inf3p: "Taxis and local minibuses right at the entrance. Help with airport transfer.",
@@ -155,7 +157,7 @@
                 inf5t: "SERVICE 24/7", inf5p: "Multilingual support for all questions. Help with excursions and daily needs.",
                 inf6t: "ENTERTAINMENT", inf6p: "Hard Rock Cafe, night clubs and Nabq Bay shopping rows within walking distance."
             },
-            RU: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "Напрямую от собственника Виктора. 2026.", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", map: "Открыть в Google Maps",
+            RU: { title: "Добро пожаловать в Amwaj hotel Apartments", sub: "Шарм-эль-Шейх, Египет", map: "Показать на карте", b1: "апартаменты с одной спальней", b2: "апартаменты с двумя спальнями", nights: "Ночей:", disc: "Скидка:", book: "Забронировать", placeholder: "Выбрать даты", total: "Итого:", contacts: "Контакты", viktor: "М-р Виктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
                 inf1t: "ОБ АПАРТАМЕНТАХ", inf1p: "Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.",
                 inf2t: "ОТДЫХ И ПЛЯЖ", inf2p: "Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.",
                 inf3t: "ТРАНСПОРТ", inf3p: "Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.",
@@ -163,7 +165,7 @@
                 inf5t: "СЕРВИС 24/7", inf5p: "Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.",
                 inf6t: "РАЗВЛЕЧЕНИЯ", inf6p: "В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay."
             },
-            UA: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "Напряму від власника Віктора. 2026.", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", map: "Відкрити в Google Maps",
+            UA: { title: "Ласкаво просимо до Amwaj hotel Apartments", sub: "Шарм-ель-Шейх, Єгипет", map: "Показати на карті", b1: "апартаменти з однією спальнею", b2: "апартаменти з двома спальнями", nights: "Ночей:", disc: "Знижка:", book: "Забронювати", placeholder: "Вибрати дати", total: "Разом:", contacts: "Контакти", viktor: "М-р Віктор: WhatsApp +34 673 567 996", sherif: "М-р Шериф: WhatsApp +20 109 617 6893", 
                 inf1t: "ПРО АПАРТАМЕНТИ", inf1p: "Кухня, СВЧ, холодильник, повний набір посуду. Цілодобова охорона та комфорт.",
                 inf2t: "ВІДПОЧИНОК ТА ПЛЯЖ", inf2p: "Безкоштовний Аквапарк та приватний пляж (шезлонги включені). Басейни комплексу в доступі.",
                 inf3t: "ТРАНСПОРТ", inf3p: "Таксі та міські маршрутки прямо біля входу. Допомога з трансфером в аеропорт.",
@@ -171,23 +173,23 @@
                 inf5t: "СЕРВИС 24/7", inf5p: "Підтримка з усіх питань. Допомога в організації екскурсій та побуту.",
                 inf6t: "РОЗВАГИ", inf6p: "У пішій доступності Hard Rock Cafe, нічні клуби та торгові ряди Nabq Bay."
             },
-            EG: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "من المالك فيكتور مباشرة. 2026.", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التواريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893", map: "افتح في خرائط جوجل",
-                inf1t: "عن الشقق", inf1p: "مطبخ، ميكروويف، ثلاجة، طقم أطباق كامل. أمن وراحة على مدار الساعة.",
+            EG: { title: "مرحباً بكم في شقق فندق أمواج", sub: "شرم الشيخ، مصر", map: "عرض على الخريطة", b1: "شقق غرفة نوم واحدة", b2: "شقق غرفتين نوم", nights: "ليالي:", disc: "تخفيض:", book: "احجز الآن", placeholder: "اختر التוاريخ", total: "المجموع:", contacts: "اتصال", viktor: "السيد فيكتور: WhatsApp +34 673 567 996", sherif: "السيد شريف: WhatsApp +20 109 617 6893",
+                inf1t: "عن الشقق", inf1p: "مطبخ، ميكروويف، ثלאجة، طقم أطباق كامل. أمن وراحة على مدار الساعة.",
                 inf2t: "الترفيه والشاطئ", inf2p: "أكوا بارك مجانية وشاطئ خاص (الكراسي مشمولة). حمامات سباحة המجمع متاحة.",
-                inf3t: "النقل", inf3p: "تاكسي وميكروباصات عند المدخل مباشرة. مساعدة في توصيل المطار.",
+                inf3t: "النقل", inf3p: "تاكسي وميكروباصات عند المدخل مباشرة. مساعدة в توصيل المطار.",
                 inf4t: "المتاجر والطعام", inf4p: "سوبر ماركت مترو ورجب أولاد على بعد 5 دقائق. ماكدونالدز وكنتاكي عبر الطريق.",
-                inf5t: "خدمة 24/7", inf5p: "دعم لجميع الأسئلة. المساعدة в تنظيم الرحلات والاحتياجات اليومية.",
+                inf5t: "خدمة 24/7", inf5p: "دعم لجميع الأسئلة. المساعدة في تنظيم الرحلات والاحتياجات اليومية.",
                 inf6t: "الترفيه", inf6p: "هارد روك كافيه والنوادي الليلية وصفوف التسوق في خليج نبق على بعد مسافة قصيرة."
             },
-            ES: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "Directo del propietario Viktor. 2026.", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893", map: "Abrir en Google Maps",
+            ES: { title: "Bienvenidos a Amwaj hotel Apartments", sub: "Sharm El Sheikh, Egipto", map: "Mostrar en el mapa", b1: "apartamentos de un dormitorio", b2: "apartamentos de dos dormitorios", nights: "Noches:", disc: "Descuento:", book: "Reservar", placeholder: "Seleccionar fechas", total: "Total:", contacts: "Contactos", viktor: "Sr. Viktor: WhatsApp +34 673 567 996", sherif: "Sr. Sherif: WhatsApp +20 109 617 6893",
                 inf1t: "SOBRE APARTAMENTOS", inf1p: "Cocina, microondas, nevera, vajilla completa. Seguridad 24/7 y confort.",
                 inf2t: "RECREO Y PLAYA", inf2p: "Parque acuático gratuito y playa privada (tumbonas incluidas). Piscinas del complejo disponibles.",
-                inf3t: "TRANSPORTE", inf3p: "Taxis y minibuses locales justo en la entrada. Ayuda con el traslado al aeropuerto.",
+                inf3t: "TRANSPORTE", inf3p: "Taxis and minibuses locales justo en la entrada. Ayuda con el traslado al aeropuerto.",
                 inf4t: "TIENDAS Y COMIDA", inf4p: "Supermercados Metro y Ragab Sons a 5 min. McDonald's y KFC al otro lado de la calle.",
                 inf5t: "SERVICIO 24/7", inf5p: "Soporte multilingüe para todas las dudas. Ayuda con excursiones y vida diaria.",
                 inf6t: "DIVERSIÓN", inf6p: "Hard Rock Cafe, discotecas y tiendas de Nabq Bay a poca distancia a pie."
             },
-            IL: { title: "Welcome to Amwaj hotel Apartments\nSharm El Sheikh, Egypt", sub: "ישירות מהבעלים ויקטור. 2026.", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893", map: "פתח במפות גוגל",
+            IL: { title: 'ברוכים הבאים לדירות מלון אמואז"', sub: "שארם א-שייח', מצרים", map: "הצג במפה", b1: "דירות חדר שינה אחד", b2: "דירות שני חדרי שינה", nights: "לילות:", disc: "הנחה:", book: "הזמן עכשיו", placeholder: "בחר תאריכים", total: "סה\"כ:", contacts: "אנשי קשר", viktor: "מר ויקטור: WhatsApp +34 673 567 996", sherif: "מר שריף: WhatsApp +20 109 617 6893",
                 inf1t: "על הדירות", inf1p: "מטבח, מיקרוגל, מקרר, סט כלים מלא. אבטחה ונוחות 24/7.",
                 inf2t: "נופש וחוף", inf2p: "פארק מים חינם וחוף פרטי (מיטות שיזוף כלולות). בריכות הקומפלקס זמינות.",
                 inf3t: "תחבורה", inf3p: "מוניות ומיניבוסים מקומיים ממש בכניסה. עזרה בהסעות לשדה התעופה.",
@@ -220,6 +222,7 @@
             document.body.dir = (lang === 'IL') ? 'rtl' : 'ltr';
             document.getElementById('main-title').innerText = t.title;
             document.getElementById('main-subtitle').innerText = t.sub;
+            document.getElementById('txt-map').innerText = t.map;
             document.getElementById('title-1bed').innerText = t.b1;
             document.getElementById('title-2bed').innerText = t.b2;
             document.getElementById('txt-nights').innerText = t.nights;
@@ -230,7 +233,6 @@
             document.getElementById('footer-contacts-title').innerText = t.contacts;
             document.getElementById('contact-viktor').innerText = t.viktor;
             document.getElementById('contact-sherif').innerText = t.sherif;
-            document.getElementById('txt-map').innerText = t.map;
             
             for(let i=1; i<=6; i++) {
                 document.getElementById('h-inf'+i).innerText = t['inf'+i+'t'];
