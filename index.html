@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amwaj Booking System V.4.0</title>
+    <title>Amwaj Booking System V.5.0.1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -25,6 +25,18 @@
         .info-card:hover { border-color: #ef4444; }
         [dir="rtl"] { text-align: right; }
         [dir="rtl"] .border-l-8 { border-left-width: 0; border-right-width: 8px; padding-left: 0; padding-right: 1.5rem; }
+
+        /* Стили для 6 блоков */
+        .v-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; }
+        .v-info-card { background: white; border-radius: 35px; padding: 30px; border-bottom: 8px solid; box-shadow: 0 5px 15px rgba(0,0,0,0.03); text-align: left; }
+        .v-info-card h4 { margin: 0 0 10px; font-size: 14px; font-weight: 800; text-transform: uppercase; }
+        .v-info-card p { font-size: 14px; line-height: 1.5; color: #444; margin: 0; }
+        .brd-red { border-color: #e63946; h4 { color: #e63946; } }
+        .brd-blue { border-color: #3a86ff; h4 { color: #3a86ff; } }
+        .brd-green { border-color: #38b000; h4 { color: #38b000; } }
+        .brd-orange { border-color: #ff9f1c; h4 { color: #ff9f1c; } }
+        .brd-purple { border-color: #8338ec; h4 { color: #8338ec; } }
+        .brd-cyan { border-color: #00b4d8; h4 { color: #00b4d8; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans text-center md:text-left">
@@ -53,38 +65,23 @@
         <div class="mb-12 flex items-center"><h2 id="title-2bed" class="text-4xl font-black border-l-8 border-gray-900 pl-6 uppercase text-gray-900 tracking-tight"></h2><span class="text-gray-300 ml-4 font-medium italic text-2xl">$180/night</span></div>
         <div id="two-bed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-28"></div>
 
+        <div class="v-info-grid mb-28">
+            <div class="v-info-card brd-red"><h4>ОБ АПАРТАМЕНТАХ</h4><p>Кухня, СВЧ, холодильник, полный набор посуды. Круглосуточная охрана и комфорт.</p></div>
+            <div class="v-info-card brd-blue"><h4>ОТДЫХ И ПЛЯЖ</h4><p>Бесплатный Аквапарк и частный пляж (лежаки включены). Бассейны комплекса в доступе.</p></div>
+            <div class="v-info-card brd-green"><h4>ТРАНСПОРТ</h4><p>Такси и городские маршрутки прямо у входа. Помощь с трансфером в аэропорт.</p></div>
+            <div class="v-info-card brd-orange"><h4>МАГАЗИНЫ И ЕДА</h4><p>Супермаркеты Metro и Ragab Sons в 5 минутах ходьбы. McDonald's и KFC через дорогу.</p></div>
+            <div class="v-info-card brd-purple"><h4>СЕРВИС 24/7</h4><p>Русскоязычная поддержка по всем вопросам. Помощь в организации экскурсий и быта.</p></div>
+            <div class="v-info-card brd-cyan"><h4>РАЗВЛЕЧЕНИЯ</h4><p>В пешей доступности Hard Rock Cafe, ночные клубы и торговые ряды Nabq Bay.</p></div>
+        </div>
+
         <h2 id="title-info-section" class="text-4xl font-black mb-12 border-l-8 border-red-600 pl-6 uppercase text-gray-900 tracking-tight">Useful Information</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
-            <div class="info-card">
-                <i class="fas fa-utensils text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t1" class="text-xl font-black uppercase mb-2">Food & Drinks</h3>
-                <p id="info-d1" class="text-gray-500 text-sm italic">Fish Market, Hard Rock Cafe, Farsha Lounge.</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-car text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t2" class="text-xl font-black uppercase mb-2">Transport</h3>
-                <p id="info-d2" class="text-gray-500 text-sm italic">InDrive, Uber, local blue taxis (negotiate price).</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-umbrella-beach text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t3" class="text-xl font-black uppercase mb-2">Beaches</h3>
-                <p id="info-d3" class="text-gray-500 text-sm italic">Amwaj Private Beach, El Fanar, Terrazzina.</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-shopping-cart text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t4" class="text-xl font-black uppercase mb-2">Shopping</h3>
-                <p id="info-d4" class="text-gray-500 text-sm italic">Metro Market, Carrefour, Old Market (souq).</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-pills text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t5" class="text-xl font-black uppercase mb-2">Pharmacy</h3>
-                <p id="info-d5" class="text-gray-500 text-sm italic">El Ezaby, local pharmacies (ask for El-Rowaisat prices).</p>
-            </div>
-            <div class="info-card">
-                <i class="fas fa-wifi text-red-600 text-3xl mb-4"></i>
-                <h3 id="info-t6" class="text-xl font-black uppercase mb-2">SIM Cards</h3>
-                <p id="info-d6" class="text-gray-500 text-sm italic">Vodafone, Etisalat, WE. Better buy in Soho Square.</p>
-            </div>
+            <div class="info-card"><i class="fas fa-utensils text-red-600 text-3xl mb-4"></i><h3 id="info-t1" class="text-xl font-black uppercase mb-2"></h3><p id="info-d1" class="text-gray-500 text-sm italic"></p></div>
+            <div class="info-card"><i class="fas fa-car text-red-600 text-3xl mb-4"></i><h3 id="info-t2" class="text-xl font-black uppercase mb-2"></h3><p id="info-d2" class="text-gray-500 text-sm italic"></p></div>
+            <div class="info-card"><i class="fas fa-umbrella-beach text-red-600 text-3xl mb-4"></i><h3 id="info-t3" class="text-xl font-black uppercase mb-2"></h3><p id="info-d3" class="text-gray-500 text-sm italic"></p></div>
+            <div class="info-card"><i class="fas fa-shopping-cart text-red-600 text-3xl mb-4"></i><h3 id="info-t4" class="text-xl font-black uppercase mb-2"></h3><p id="info-d4" class="text-gray-500 text-sm italic"></p></div>
+            <div class="info-card"><i class="fas fa-pills text-red-600 text-3xl mb-4"></i><h3 id="info-t5" class="text-xl font-black uppercase mb-2"></h3><p id="info-d5" class="text-gray-500 text-sm italic"></p></div>
+            <div class="info-card"><i class="fas fa-wifi text-red-600 text-3xl mb-4"></i><h3 id="info-t6" class="text-xl font-black uppercase mb-2"></h3><p id="info-d6" class="text-gray-500 text-sm italic"></p></div>
         </div>
     </main>
 
@@ -93,7 +90,7 @@
         <div onclick="prevImg()" class="nav-btn left-10"><i class="fas fa-chevron-left"></i></div>
         <div class="relative group">
             <img id="gallery-img-content" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl transition-all duration-500">
-            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold">thumb1</div>
+            <div id="gallery-counter" class="absolute bottom-4 right-4 bg-black/50 text-white px-4 py-2 rounded-full font-bold"></div>
         </div>
         <div onclick="nextImg()" class="nav-btn right-10"><i class="fas fa-chevron-right"></i></div>
     </div>
@@ -240,7 +237,7 @@
             document.getElementById('modal-apt-title').innerText = `Apartment #${no}`;
             document.getElementById('book-modal').classList.add('active');
             flatpickr("#date-picker", {
-                mode: "range", minDate: "today", disable: lockedDatesDB[no] || [], dateFormat: "d.m.Y",
+                mode: "range", minDate: "today", disable: (lockedDatesDB[no] || []), dateFormat: "d.m.Y",
                 onChange: (dates) => {
                     if (dates.length === 2) {
                         const nights = Math.ceil((dates[1] - dates[0])/(1000*60*60*24));
